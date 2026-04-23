@@ -1,139 +1,143 @@
-/* I incuded these librarys so my code works.
-   QFile lets me open and save the files on my hardrive.
-   QTextStream makes it super easy for me to read the text line by line.
-   QStringList helps me keep the splitted words in a nice array.
-   QDebug is just so I can print stuff out on the black console screen. */
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
-#include <QFile>
-#include <QTextStream>
-#include <QStringList>
+#include <string>
+#include<iostream>
+using namespace std;
 
-/* This class is for the car comapny.  */
-class Manufacturer {
+/* ════════════════════════════════════════════════════════════
+   StringArray
+   A minimal resizable array of std::string that replaces
+   a resizable dynamic array of std::string used throughout this project.
+   ════════════════════════════════════════════════════════════ */
+class StringArray {
 private:
-    QString name;
+    string* data;
+    int count;
+    int capacity;
+
+    void resize();
+
 public:
-    Manufacturer(const QString& n = "Unknown");
-    QString getName() const;
+    StringArray();
+    StringArray(const StringArray& other);
+    StringArray& operator=(const StringArray& other);
+    ~StringArray();
+
+    void push(const string& val);
+    bool contains(const string& val) const;
+    void sort();
+    int  size() const;
+    string operator[](int i) const;
 };
 
 
+/* ════════════════════════════════════════════════════════════
+   Manufacturer
+   ════════════════════════════════════════════════════════════ */
+class Manufacturer {
+private:
+    string name;
+public:
+    Manufacturer(const string& n = "Unknown");
+    string getName() const;
+};
 
 
-
-
-
-
-/* Here is my main base class for all the cars.*/
+/* ════════════════════════════════════════════════════════════
+   Car  (abstract base)
+   ════════════════════════════════════════════════════════════ */
 class Car {
 protected:
-    QString type;
+    string  type;
     Manufacturer company;
-    QString carName;
-    QString colours;
-    bool available;
-    bool maintenanceRequired;
-    double pricePerKm;
+    string  carName;
+    string  colours;
+    bool         available;
+    bool         maintenanceRequired;
+    double       pricePerKm;
+
 public:
-    Car(QString t, QString comp, QString name,
-        QString col, bool avail, bool maint, double price);
+    Car(string t, string comp, string name, string col, bool avail, bool maint, double price);
 
-    QString getType()    const;
-    QString getCompany() const;
-    QString getName()    const;
-    QString getColour()  const;
-    bool    isAvailable()      const;
-    bool    needsMaintenance() const;
-    double  getPrice()         const;
+    string getType() const;
+    string getCompany() const;
+    string getName() const;
+    string getColour() const;
+    bool        isAvailable() const;
+    bool        needsMaintenance() const;
+    double      getPrice() const;
 
-    QString getBaseDataLeft()  const;
-    QString getBaseDataRight() const;
+    string getBaseDataLeft() const;
+    string getBaseDataRight() const;
 
-    /* I made this pure virtual so every car type is forced to implement its own format. */
-    virtual QString toSingleStr() const = 0;
+    virtual string toSingleStr() const = 0;
     virtual ~Car() {}
 };
 
 
-
-
-
-
-
-
-/* This class inherrits from the Car class. */
+/* ════════════════════════════════════════════════════════════
+   ElectricCar
+   ════════════════════════════════════════════════════════════ */
 class ElectricCar : public Car {
 private:
-    QString batteryPower;
+    string batteryPower;
 public:
-    ElectricCar(QString t, QString comp, QString name, QString battery, QString col, bool avail, bool maint, double price);
+    ElectricCar(string t, string comp, string name, string battery, string col, bool avail, bool maint, double price);
 
-    /* I added getSpec so the GUI can grab the battery info directly without parsing. */
-    QString getSpec()     const;
-    QString toSingleStr() const override;
+    string getSpec()     const;
+    string toSingleStr() const override;
 };
 
 
-
-
-
-
-
-/* This class also inherrits from Car.  */
+/* ════════════════════════════════════════════════════════════
+   PetrolCar
+   ════════════════════════════════════════════════════════════ */
 class PetrolCar : public Car {
 private:
-    QString engineCapacity;
+    string engineCapacity;
 public:
-    PetrolCar(QString t, QString comp, QString name, QString engine, QString col, bool avail, bool maint, double price);
+    PetrolCar(string t, string comp, string name, string engine, string col, bool avail, bool maint, double price);
 
-    /* Same as above but for engine capacity. */
-    QString getSpec()     const;
-    QString toSingleStr() const override;
+    string getSpec()     const;
+    string toSingleStr() const override;
 };
 
 
-
-
-
-
-
-
-
-
-/* This is my inventory class. I used basic arrays . */
+/* ════════════════════════════════════════════════════════════
+   Inventory
+   ════════════════════════════════════════════════════════════ */
 class Inventory {
 private:
     ElectricCar** evArray;
-    PetrolCar**   petrolArray;
-    int evCount,    petrolCount;
+    PetrolCar** petrolArray;
+    int evCount, petrolCount;
     int evCapacity, petrolCapacity;
 
-    /* I store the file path here so saveToFile can write back to the same file without needing it passed in again. */
-    QString loadedFilePath;
+    string loadedFilePath;
 
     void resizeEvArray();
     void resizePetrolArray();
+
+    static StringArray splitLine(const string& line, char delim);
+    static string toLower(const string& s);
+    static string trim(const string& s);
 
 public:
     Inventory();
     ~Inventory();
 
-    void loadFromFile(const QString& fileName);
+    void loadFromFile(const string& fileName);
+    void saveToFile(const string& fileName = "");
+    void showFilteredCars(string fType, string fCompany);
 
-    /* Pass no argument to save back to the same file it was loaded from. */
-    void saveToFile(const QString& fileName = "");
-    void showFilteredCars(QString fType, QString fCompany);
+    int getEvCount() const;
+    int getPetrolCount() const;
+    ElectricCar* getEvAt (int i) const;
+    PetrolCar* getPetrolAt(int i) const;
 
-    int          getEvCount()      const;
-    int          getPetrolCount()  const;
-    ElectricCar* getEvAt    (int i) const;
-    PetrolCar*   getPetrolAt(int i) const;
-
-    /* These two are for the GUI combo boxes so they can show only real values from the data. */
-    QStringList getTypes()         const;
-    QStringList getManufacturers() const;
+    StringArray getTypes() const;
+    StringArray getManufacturers() const;
 };
 
 #endif

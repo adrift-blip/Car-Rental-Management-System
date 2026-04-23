@@ -1,142 +1,256 @@
 #include "Inventory.h"
-#include <QFile>
-#include <QTextStream>
-#include <QStringList>
-#include <QDebug>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <algorithm>
+#include <cctype>
 #include <iostream>
 using namespace std;
 
-/* I put this constructor here to set the name of the comapny. */
-Manufacturer::Manufacturer(const QString& n) : name(n) {}
 
-/* I use this function to get the name back out. */
-QString Manufacturer::getName() const { return name; }
+/* ════════════════════════════════════════════════════════════
+   StringArray
+   ════════════════════════════════════════════════════════════ */
 
+StringArray::StringArray() : data(new string[4]), count(0), capacity(4) {}
 
-/* Sets up the base car data including the bools. */
-Car::Car(QString t, QString comp, QString name, QString col, bool avail, bool maint, double price): type(t), company(comp), carName(name), colours(col), available(avail), maintenanceRequired(maint), pricePerKm(price) {}
-
-/* Groups the first part of the single str row. */
-QString Car::getBaseDataLeft() const {
-    return QString("%1,%2,%3").arg(type, company.getName(), carName);
+/* Deep-copy constructor. */
+StringArray::StringArray(const StringArray& other) : data(new string[other.capacity]), count(other.count), capacity(other.capacity)
+{
+    for (int i = 0; i < count; ++i)
+        data[i] = other.data[i];
 }
 
-/* Groups the second part and turns bools into yes/no strings.
-   I changed True/False to yes/no so the file saves in the same
-   format it was loaded from — otherwise reload after save would break. */
-QString Car::getBaseDataRight() const {
-
-    return QString("%1,%2,%3,%4")
-    .arg(colours) .arg(available ? "yes" : "no") .arg(maintenanceRequired ? "yes" : "no").arg(pricePerKm, 0, 'f', 2);
+/* Copy-assignment operator. */
+StringArray& StringArray::operator=(const StringArray& other)
+{
+    if (this == &other) return *this;
+    delete[] data;
+    capacity = other.capacity;
+    count = other.count;
+    data = new string[capacity];
+    for (int i = 0; i < count; ++i)
+        data[i] = other.data[i];
+    return *this;
 }
 
-QString Car::getType()    const { return type; }
-QString Car::getCompany() const { return company.getName(); }
-QString Car::getName()    const { return carName; }
-QString Car::getColour()  const { return colours; }
-bool    Car::isAvailable()      const { return available; }
-bool    Car::needsMaintenance() const { return maintenanceRequired; }
-double  Car::getPrice()         const { return pricePerKm; }
+StringArray::~StringArray() { delete[] data; }
 
+/* Doubles the internal buffer when full. */
+void StringArray::resize()
+{
+    capacity *= 2;
+    string* newData = new string[capacity];
+    for (int i = 0; i < count; ++i)
+        newData[i] = data[i];
+    delete[] data;
+    data = newData;
+}
 
-/* Constructor for ev car. */
-ElectricCar::ElectricCar(QString t, QString comp, QString name,QString battery, QString col, bool avail, bool maint, double price) : Car(t, comp, name, col, avail, maint, price), batteryPower(battery) {}
+void StringArray::push(const string& val)
+{
+    if (count == capacity) resize();
+    data[count++] = val;
+}
 
-/* I added this so the GUI can read the spec directly instead of splitting toSingleStr. */
-QString ElectricCar::getSpec() const { return batteryPower; }
+bool StringArray::contains(const string& val) const
+{
+    for (int i = 0; i < count; ++i)
+        if (data[i] == val) return true;
+    return false;
+}
 
-/* EV CSV format. */
-QString ElectricCar::toSingleStr() const {
-    return QString("%1,EV,%2,%3").arg(getBaseDataLeft(), batteryPower, getBaseDataRight());
+/* Simple bubble sort — string counts are small so this is fine. */
+void StringArray::sort()
+{
+    for (int i = 0; i < count - 1; ++i)
+        for (int j = 0; j < count - 1 - i; ++j)
+            if (data[j] > data[j + 1])
+                std::swap(data[j], data[j + 1]);
+}
+
+int StringArray::size() const { return count; }
+string StringArray::operator[](int i) const
+{
+    if (i < 0 || i >= count) return "";
+    return data[i];
 }
 
 
-/* Constructor for petrol car. */
-PetrolCar::PetrolCar(QString t, QString comp, QString name, QString engine, QString col, bool avail, bool maint, double price) : Car(t, comp, name, col, avail, maint, price), engineCapacity(engine) {}
+/* ════════════════════════════════════════════════════════════
+   Private static helpers
+   ════════════════════════════════════════════════════════════ */
 
-/* Same as the EV one but returns engine capacity instead. */
-QString PetrolCar::getSpec() const { return engineCapacity; }
+/* Splits line by delim and returns each token in a StringArray. */
+StringArray Inventory::splitLine(const string& line, char delim)
+{
+    StringArray result;
+    string current;
+    for (char ch : line) {
+        if (ch == delim) {
+            result.push(current);
+            current.clear();
+        } else {
+            current += ch;
+        }
+    }
+    result.push(current);   /* push the final token */
+    return result;
+}
 
-/* Petrol CSV format. */
-QString PetrolCar::toSingleStr() const {
-    return QString("%1,Petrol,%2,%3").arg(getBaseDataLeft(), engineCapacity, getBaseDataRight());
+/* Returns a lowercase copy of s. */
+string Inventory::toLower(const string& s)
+{
+    string r = s;
+    for (char& c : r) c = static_cast<char>(tolower(static_cast<unsigned char>(c)));
+    return r;
+}
+
+/* Removes leading and trailing whitespace. */
+string Inventory::trim(const string& s)
+{
+    size_t start = s.find_first_not_of(" \t\r\n");
+    if (start == string::npos) return "";
+    size_t end = s.find_last_not_of(" \t\r\n");
+    return s.substr(start, end - start + 1);
 }
 
 
-/* Here I setup the dynamic arrays with a starting capacity of 5. */
-Inventory::Inventory(): evCount(0), petrolCount(0), evCapacity(5), petrolCapacity(5)
+/* ════════════════════════════════════════════════════════════
+   Manufacturer
+   ════════════════════════════════════════════════════════════ */
+
+Manufacturer::Manufacturer(const string& n) : name(n) {}
+string Manufacturer::getName() const { return name; }
+
+
+/* ════════════════════════════════════════════════════════════
+   Car (base)
+   ════════════════════════════════════════════════════════════ */
+
+Car::Car(string t, string comp, string name, string col, bool avail, bool maint, double price) : type(t), company(comp), carName(name), colours(col), available(avail), maintenanceRequired(maint), pricePerKm(price) {}
+
+string Car::getBaseDataLeft() const
+{
+    return type + "," + company.getName() + "," + carName;
+}
+
+string Car::getBaseDataRight() const
+{
+    ostringstream oss;
+    oss << colours << "," << (available ? "yes" : "no") << "," << (maintenanceRequired ? "yes" : "no") << "," << fixed << setprecision(2) << pricePerKm;
+    return oss.str();
+}
+
+string Car::getType() const { return type; }
+string Car::getCompany() const { return company.getName(); }
+string Car::getName() const { return carName; }
+string Car::getColour() const { return colours; }
+bool Car::isAvailable() const { return available; }
+bool Car::needsMaintenance() const { return maintenanceRequired; }
+double Car::getPrice() const { return pricePerKm; }
+
+
+/* ════════════════════════════════════════════════════════════
+   ElectricCar
+   ════════════════════════════════════════════════════════════ */
+
+ElectricCar::ElectricCar(string t, string comp, string name, string battery, string col, bool avail, bool maint, double price) : Car(t, comp, name, col, avail, maint, price), batteryPower(battery) {}
+
+string ElectricCar::getSpec() const { return batteryPower; }
+
+string ElectricCar::toSingleStr() const
+{
+    return getBaseDataLeft() + ",EV," + batteryPower + "," + getBaseDataRight();
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   PetrolCar
+   ════════════════════════════════════════════════════════════ */
+
+PetrolCar::PetrolCar(string t, string comp, string name, string engine, string col, bool avail, bool maint, double price) : Car(t, comp, name, col, avail, maint, price), engineCapacity(engine) {}
+
+string PetrolCar::getSpec() const { return engineCapacity; }
+
+string PetrolCar::toSingleStr() const
+{
+    return getBaseDataLeft() + ",Petrol," + engineCapacity + "," + getBaseDataRight();
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   Inventory — constructor / destructor
+   ════════════════════════════════════════════════════════════ */
+
+Inventory::Inventory() : evCount(0), petrolCount(0), evCapacity(5), petrolCapacity(5)
 {
     evArray     = new ElectricCar*[evCapacity];
     petrolArray = new PetrolCar*  [petrolCapacity];
 }
 
-/* My destructor deletes every object first and then deletes the dynamic array itself to be safe. */
-Inventory::~Inventory() {
-
-    for (int i = 0; i < evCount;     ++i) {
-        delete evArray[i];
-    }
-
-    for (int i = 0; i < petrolCount; ++i) {
-        delete petrolArray[i];
-    }
-
+Inventory::~Inventory()
+{
+    for (int i = 0; i < evCount; ++i) delete evArray[i];
+    for (int i = 0; i < petrolCount; ++i) delete petrolArray[i];
     delete[] evArray;
     delete[] petrolArray;
 }
 
-/* This is my function to resize the ev array. I double the size and copy everything over to the new one. */
-void Inventory::resizeEvArray() {
 
+/* ════════════════════════════════════════════════════════════
+   Resize helpers
+   ════════════════════════════════════════════════════════════ */
+
+void Inventory::resizeEvArray()
+{
     evCapacity *= 2;
     ElectricCar** newArr = new ElectricCar*[evCapacity];
-    for (int i = 0; i < evCount; ++i){
-        newArr[i] = evArray[i];
-    }
-
+    for (int i = 0; i < evCount; ++i) newArr[i] = evArray[i];
     delete[] evArray;
     evArray = newArr;
 }
 
-/* Same thing as above but for the petrol array. */
-void Inventory::resizePetrolArray() {
+void Inventory::resizePetrolArray()
+{
     petrolCapacity *= 2;
     PetrolCar** newArr = new PetrolCar*[petrolCapacity];
-
-    for (int i = 0; i < petrolCount; ++i) {
-        newArr[i] = petrolArray[i];
-    }
+    for (int i = 0; i < petrolCount; ++i) newArr[i] = petrolArray[i];
     delete[] petrolArray;
     petrolArray = newArr;
 }
 
-/* This reads the file and checks if I need more space before adding a new car. */
-void Inventory::loadFromFile(const QString& fileName) {
 
+/* ════════════════════════════════════════════════════════════
+   loadFromFile
+   ════════════════════════════════════════════════════════════ */
+
+void Inventory::loadFromFile(const string& fileName)
+{
     loadedFilePath = fileName;
 
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return;
+    ifstream file(fileName);
+    if (!file.is_open()) return;
 
-    QTextStream in(&file);
-    while (!in.atEnd()) {
-        QString     line  = in.readLine().trimmed();
-        QStringList parts = line.split(',');
+    string line;
+    while (getline(file, line)) {
+        StringArray parts = splitLine(line, ',');
+        if (parts.size() < 9) continue;   /* skip blank or malformed lines */
 
-        if (parts.size() < 9) continue;   // skip blank or malformed lines
+        string type          = trim(parts[0]);
+        string company       = trim(parts[1]);
+        string carName       = trim(parts[2]);
+        string fuelType      = toLower(trim(parts[3]));
+        string powerOrEngine = trim(parts[4]);
+        string colours       = trim(parts[5]);
 
-        QString type          = parts[0].trimmed();
-        QString company       = parts[1].trimmed();
-        QString carName       = parts[2].trimmed();
-        QString fuelType      = parts[3].trimmed().toLower();
-        QString powerOrEngine = parts[4].trimmed();
-        QString colours       = parts[5].trimmed();
+        string availStr = toLower(trim(parts[6]));
+        string maintStr = toLower(trim(parts[7]));
 
-        bool avail = (parts[6].trimmed().toLower() == "yes" ||parts[6].trimmed().toLower() == "true");
+        bool avail = (availStr == "yes" || availStr == "true");
+        bool maint = (maintStr == "yes" || maintStr == "true");
 
-        bool maint = (parts[7].trimmed().toLower() == "yes" ||parts[7].trimmed().toLower() == "true");
-
-        double price = parts[8].trimmed().toDouble();
+        double price = stod(trim(parts[8]));
 
         if (fuelType == "ev") {
             if (evCount == evCapacity) resizeEvArray();
@@ -152,95 +266,100 @@ void Inventory::loadFromFile(const QString& fileName) {
     file.close();
 }
 
-/* Loops through the counts of each dynamic array and saves them to the file.
-   If no filename is passed in it just writes back to the same file it loaded from. */
-void Inventory::saveToFile(const QString& fileName) {
 
-    const QString target = fileName.isEmpty() ? loadedFilePath : fileName;
+/* ════════════════════════════════════════════════════════════
+   saveToFile
+   ════════════════════════════════════════════════════════════ */
 
-    QFile file(target);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) return;
+void Inventory::saveToFile(const string& fileName)
+{
+    const string target = fileName.empty() ? loadedFilePath : fileName;
 
-    QTextStream out(&file);
-    for (int i = 0; i < evCount;     ++i){
-        out << evArray[i]    ->toSingleStr() << "\n";
-    }
+    ofstream file(target);
+    if (!file.is_open()) return;
 
-    for (int i = 0; i < petrolCount; ++i){
+    for (int i = 0; i < evCount;     ++i)
+        file << evArray[i]->toSingleStr()     << "\n";
+    for (int i = 0; i < petrolCount; ++i)
+        file << petrolArray[i]->toSingleStr() << "\n";
 
-        out << petrolArray[i]->toSingleStr() << "\n";
-    }
     file.close();
 }
 
-int          Inventory::getEvCount()      const { return evCount; }
-int          Inventory::getPetrolCount()  const { return petrolCount; }
-ElectricCar* Inventory::getEvAt    (int i) const { return evArray[i]; }
+
+/* ════════════════════════════════════════════════════════════
+   Accessors
+   ════════════════════════════════════════════════════════════ */
+
+int Inventory::getEvCount() const { return evCount; }
+int Inventory::getPetrolCount() const { return petrolCount; }
+ElectricCar* Inventory::getEvAt (int i) const { return evArray[i]; }
 PetrolCar*   Inventory::getPetrolAt(int i) const { return petrolArray[i]; }
 
-/* This is my filtering logic. I loop through every car in my dynamic arrays and check if they match your words and my strict safety rules. */
-void Inventory::showFilteredCars(QString fType, QString fCompany) {
+
+/* ════════════════════════════════════════════════════════════
+   showFilteredCars — console output
+   ════════════════════════════════════════════════════════════ */
+
+void Inventory::showFilteredCars(string fType, string fCompany)
+{
     bool foundAny = false;
-    QTextStream out(stdout);
 
     for (int i = 0; i < evCount; ++i) {
+        bool typeMatch    = fType.empty()    || toLower(evArray[i]->getType())    == toLower(fType);
+        bool companyMatch = fCompany.empty() || toLower(evArray[i]->getCompany()) == toLower(fCompany);
 
-        bool typeMatch    = fType.isEmpty()    || (evArray[i]->getType()   .toLower() == fType.toLower());
-        bool companyMatch = fCompany.isEmpty() || (evArray[i]->getCompany().toLower() == fCompany.toLower());
-
-        if (typeMatch && companyMatch && evArray[i]->isAvailable() && !evArray[i]->needsMaintenance()) {
-            out << "MATCH FOUND (EV): " << evArray[i]->toSingleStr() << Qt::endl;
+        if (typeMatch && companyMatch &&
+            evArray[i]->isAvailable() && !evArray[i]->needsMaintenance())
+        {
+            cout << "MATCH FOUND (EV): " << evArray[i]->toSingleStr() << "\n";
             foundAny = true;
         }
     }
 
     for (int i = 0; i < petrolCount; ++i) {
-        bool typeMatch    = fType.isEmpty()    || (petrolArray[i]->getType()   .toLower() == fType.toLower());
-        bool companyMatch = fCompany.isEmpty() || (petrolArray[i]->getCompany().toLower() == fCompany.toLower());
+        bool typeMatch    = fType.empty()    || toLower(petrolArray[i]->getType())    == toLower(fType);
+        bool companyMatch = fCompany.empty() || toLower(petrolArray[i]->getCompany()) == toLower(fCompany);
 
-        if (typeMatch && companyMatch && petrolArray[i]->isAvailable() && !petrolArray[i]->needsMaintenance()) {
-            out << "MATCH FOUND (Petrol): " << petrolArray[i]->toSingleStr() << Qt::endl;
+        if (typeMatch && companyMatch &&
+            petrolArray[i]->isAvailable() && !petrolArray[i]->needsMaintenance())
+        {
+            cout << "MATCH FOUND (Petrol): " << petrolArray[i]->toSingleStr() << "\n";
             foundAny = true;
         }
     }
 
-    if (!foundAny) {
-        out << "(No cars match those filters or safety rules)" << Qt::endl;
-    }
+    if (!foundAny)
+        cout << "(No cars match those filters or safety rules)\n";
 }
 
-/* Returns every unique car type found in the loaded data, sorted alphabetically. */
-QStringList Inventory::getTypes() const {
-    QStringList list;
-    for (int i = 0; i < evCount; ++i){
 
-        if (!list.contains(evArray[i]->getType())){
-            list << evArray[i]->getType();
-        }
-    }
-    for (int i = 0; i < petrolCount; ++i){
-        if (!list.contains(petrolArray[i]->getType())){
+/* ════════════════════════════════════════════════════════════
+   getTypes / getManufacturers
+   ════════════════════════════════════════════════════════════ */
 
-            list << petrolArray[i]->getType();
-        }
-    }
+StringArray Inventory::getTypes() const
+{
+    StringArray list;
+    for (int i = 0; i < evCount; ++i)
+        if (!list.contains(evArray[i]->getType()))
+            list.push(evArray[i]->getType());
+    for (int i = 0; i < petrolCount; ++i)
+        if (!list.contains(petrolArray[i]->getType()))
+            list.push(petrolArray[i]->getType());
     list.sort();
     return list;
 }
 
-/* Returns every unique manufacturer name found in the loaded data, sorted alphabetically. */
-QStringList Inventory::getManufacturers() const {
-    QStringList list;
-    for (int i = 0; i < evCount; ++i){
-        if (!list.contains(evArray[i]->getCompany())){
-            list << evArray[i]->getCompany();
-        }
-    }
-    for (int i = 0; i < petrolCount; ++i){
-        if (!list.contains(petrolArray[i]->getCompany())){
-            list << petrolArray[i]->getCompany();
-        }
-    }
+StringArray Inventory::getManufacturers() const
+{
+    StringArray list;
+    for (int i = 0; i < evCount; ++i)
+        if (!list.contains(evArray[i]->getCompany()))
+            list.push(evArray[i]->getCompany());
+    for (int i = 0; i < petrolCount; ++i)
+        if (!list.contains(petrolArray[i]->getCompany()))
+            list.push(petrolArray[i]->getCompany());
     list.sort();
     return list;
 }
