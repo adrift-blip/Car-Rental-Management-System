@@ -7,8 +7,8 @@ using namespace std;
 
 /* ════════════════════════════════════════════════════════════
    StringArray
-   A minimal resizable array of std::string that replaces
-   a resizable dynamic array of std::string used throughout this project.
+   A minimal resizable string array that replaces
+   a resizable dynamic string array used throughout this project.
    ════════════════════════════════════════════════════════════ */
 class StringArray {
 private:
