@@ -1,0 +1,30 @@
+SUV,Toyota,bZ4X,EV,71kWh,Silver,yes,no,0.70
+SUV,Toyota,bZ4X,EV,71kWh,Black,yes,no,0.70
+SUV,Toyota,bZ4X,EV,71kWh,White,no,no,0.70
+SUV,Toyota,bZ4X,EV,91kWh,Silver,no,no,0.85
+SUV,Toyota,bZ4X,EV,91kWh,Black,yes,no,0.85
+SUV,Toyota,bZ4X,EV,91kWh,White,no,no,0.85
+Sedan,Tesla,Model 3,EV,Standard Range,White,yes,no,0.50
+Sedan,Tesla,Model 3,EV,Standard Range,Black,yes,no,0.50
+Sedan,Tesla,Model 3,EV,Standard Range,Blue,yes,yes,0.50
+Sedan,Tesla,Model 3,EV,Long Range,White,yes,no,0.65
+Sedan,Tesla,Model 3,EV,Long Range,Black,no,no,0.65
+Sedan,Tesla,Model 3,EV,Long Range,Blue,yes,yes,0.65
+SUV,Tesla,Model Y,EV,Long Range,White,yes,yes,0.75
+SUV,Tesla,Model Y,EV,Long Range,Black,no,yes,0.75
+SUV,Tesla,Model Y,EV,Long Range,Red,yes,no,0.75
+SUV,Tesla,Model Y,EV,Performance,White,no,yes,0.95
+SUV,Tesla,Model Y,EV,Performance,Black,yes,no,0.95
+SUV,Tesla,Model Y,EV,Performance,Red,no,no,0.95
+Sedan,Toyota,Camry,Petrol,2.5L,Red,yes,yes,0.45
+Sedan,Toyota,Camry,Petrol,2.5L,Blue,yes,no,0.45
+Sedan,Toyota,Camry,Petrol,2.5L,White,yes,no,0.45
+Sedan,Toyota,Camry,Petrol,3.5L V6,Red,yes,no,0.65
+Sedan,Toyota,Camry,Petrol,3.5L V6,Blue,yes,yes,0.65
+Sedan,Toyota,Camry,Petrol,3.5L V6,White,yes,no,0.65
+SUV,Ford,Explorer,Petrol,2.3L EcoBoost,Silver,yes,no,0.55
+SUV,Ford,Explorer,Petrol,2.3L EcoBoost,Black,yes,no,0.55
+SUV,Ford,Explorer,Petrol,2.3L EcoBoost,Blue,no,no,0.55
+SUV,Ford,Explorer,Petrol,3.0L EcoBoost,Silver,yes,no,0.80
+SUV,Ford,Explorer,Petrol,3.0L EcoBoost,Black,no,yes,0.80
+SUV,Ford,Explorer,Petrol,3.0L EcoBoost,Blue,yes,no,0.80
