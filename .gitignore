@@ -1,0 +1,38 @@
+# Qt build artifacts
+build/
+*.pro.user
+*.pro.user.*
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.o
+*.obj
+Makefile
+Makefile.*
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Qt Creator specific
+*.autosave
+.qmake.stash
+.qmake.cache
+.qtcreator/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Debug/Release folders inside build
+debug/
+release/

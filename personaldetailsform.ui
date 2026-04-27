@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>personalDetailsForm</class>
+ <widget class="QWidget" name="personalDetailsForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#personalDetailsForm {
+    background-color: #ffffff;
+    font-family: Segoe UI;
+}
+</string>
+  </property>
+  <widget class="QLabel" name="formPicture">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>30</y>
+     <width>71</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #1a1a2e;
+border-radius: 10px;
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/images/personalDetailsLabel.webp</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="formTitle">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>110</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 18px;
+font-weight: bold;
+color: #1a1a2e;
+background-color: transparent;
+</string>
+   </property>
+   <property name="text">
+    <string>Personal Details</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="formSubtitle">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>130</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 12px;
+color: #888888;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>Please enter your personal information</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="liscenseNoLabel">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>170</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 12px;
+color: #555555;
+background-color: transparent;
+</string>
+   </property>
+   <property name="text">
+    <string>Liscense Number</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="liscenseEdit">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>190</y>
+     <width>320</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #fafafa;
+border: 1px solid #dddddd;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+color: #1a1a2e;
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="fullNameLabel">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>240</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 12px;
+color: #555555;
+background-color: transparent;
+</string>
+   </property>
+   <property name="text">
+    <string>Full Name</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="fullNameEdit">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>260</y>
+     <width>320</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #fafafa;
+border: 1px solid #dddddd;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+color: #1a1a2e;
+</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="registerButton">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>320</y>
+     <width>320</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #1a1a2e;
+color: #ffffff;
+border: none;
+border-radius: 8px;
+font-size: 14px;
+font-weight: bold;
+</string>
+   </property>
+   <property name="text">
+    <string>Register</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
