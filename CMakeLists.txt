@@ -34,6 +34,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         inventory.h inventory.cpp
         admindashboard.cpp admindashboard.h admindashboard.ui
+        rental.h rental.cpp
+        rentalhistory.h rentalhistory.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

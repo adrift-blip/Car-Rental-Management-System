@@ -1,22 +1,22 @@
 #include "customer.h"
 #include "user.h"
 #include <fstream>
-customer::customer(): User(){
+customer::customer(): User(), rh(){
     fullName = "N/A";
     liscenseNum = "N/A";
     loyaltyPoints = 0;
 }
-customer::customer(string userName, string password, string fullName, string liscenseNum, int loyaltyPoints): User(userName, password, 0){
+customer::customer(string userName, string password, string fullName, string liscenseNum, int loyaltyPoints): User(userName, password, 0), rh("../../data/rental.txt", userName){
     this->fullName = fullName;
     this->liscenseNum = liscenseNum;
     this->loyaltyPoints = loyaltyPoints;
 }
-customer::customer(customer& c): User(c.getUserName(), c.getUserPassword(), 0){
+customer::customer(const customer& c): User(c.getUserName(), c.getUserPassword(), 0), rh(c.rh){
     this->fullName = c.fullName;
     this->liscenseNum = c.liscenseNum;
     this->loyaltyPoints = c.loyaltyPoints;
 }
-customer& customer::operator=(customer& other) {
+customer& customer::operator=(const customer& other) {
     if(this != &other){
         this->setUserName(other.getUserName());
         this->setUserPassword(other.getUserPassword());
@@ -24,6 +24,7 @@ customer& customer::operator=(customer& other) {
         this->fullName = other.fullName;
         this->liscenseNum = other.liscenseNum;
         this->loyaltyPoints = other.loyaltyPoints;
+        rh = other.rh;
     }
     return *this;
 }
@@ -51,6 +52,9 @@ void customer::addPersonalDetails() const{
         throw invalid_argument("Unable to open file or maybe file does not exist");
     }
     outFile << fullName << "," << liscenseNum << "," << loyaltyPoints;
+}
+rentalHistory& customer::getRentalHistory(){
+    return rh;
 }
 customer::~customer(){
 

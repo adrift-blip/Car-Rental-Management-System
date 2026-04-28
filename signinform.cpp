@@ -62,6 +62,7 @@ void signInForm::on_login_clicked() {
                     }
                 }
                 customer c(currentUser.getUserName(), currentUser.getUserPassword(), fullName, liscenseNum, stoi(loyaltyPoints));
+                qDebug() << "Rental count after construction:" << c.getRentalHistory().getNoOfRentals();
                 userDashboard *cd = new userDashboard(c);
                 cd->show();
                 this->hide();

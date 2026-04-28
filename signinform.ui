@@ -41,7 +41,7 @@ border-radius: 10px;</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="resource.qrc">:/images/signInFormLabel2.jpeg</pixmap>
+    <pixmap resource="resource.qrc">:/images/companyLogo3.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>

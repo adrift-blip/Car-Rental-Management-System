@@ -28,6 +28,7 @@ public:
 
 class Car {
 protected:
+    string cardID;
     string type;
     string company;
     string carName;
@@ -39,7 +40,7 @@ protected:
     double pricePerKm;
 
 public:
-    Car(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price);
+    Car(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price);
     virtual ~Car() {}
 
     string getType() const;
@@ -48,6 +49,7 @@ public:
     int getFuelType() const;
     string getSpec() const;
     string getColour() const;
+    string getCardId()const;
     bool isAvailable() const;
     bool needsMaintenance() const;
     double getPrice() const;
@@ -65,7 +67,7 @@ private:
     int trunkCapacity;
     bool hasSunroof;
 public:
-    Sedan(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int trunk, bool sun);
+    Sedan(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int trunk, bool sun);
     int getTrunk() const;
     bool getSunroof() const;
 };
@@ -75,7 +77,7 @@ private:
     bool is4WD;
     int groundClearanceMm;
 public:
-    SUV(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool fwd, int gc);
+    SUV(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool fwd, int gc);
     bool get4WD() const;
     int getGroundClearance() const;
 };
@@ -85,7 +87,7 @@ private:
     bool hasRearWiper;
     bool foldableSeats;
 public:
-    Hatchback(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool wiper, bool fold);
+    Hatchback(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool wiper, bool fold);
     bool getRearWiper() const;
     bool getFoldableSeats() const;
 };
@@ -95,7 +97,7 @@ private:
     int seatCount;
     bool slidingDoors;
 public:
-    Minivan(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int seats, bool sliding);
+    Minivan(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int seats, bool sliding);
     int getSeats() const;
     bool getSlidingDoors() const;
 };
@@ -123,6 +125,7 @@ public:
     void removeCar(int index);
     int getCarCount() const;
     Car* getCarAt(int i) const;
+    Car* getCarFromID(string CarID);
     StringArray getTypes() const;
     StringArray getManufacturers() const;
 };

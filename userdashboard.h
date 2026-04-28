@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "inventory.h"
+#include "rental.h"
 #include "customer.h"
 
 namespace Ui {
@@ -22,10 +23,20 @@ private slots:
     void applyFilter();
     void onFleetRowClicked(int r, int c);
     void goToBooking(Car* car);
+    void createHistoryTable();
+    void loadFromHistory();
+    void initializeBookingPage();
+    void whenCarTypeChanged(int index);
+    void whenCarSelected(int index);
+    void updateBooking();
+    void on_confirmBtn_clicked();
+    void on_discountBtn_clicked();
 private:
     Ui::userDashboard *ui;
     customer c;
     Inventory* i;
+    Car* userSelection;
+    double discount;
 };
 
 #endif // USERDASHBOARD_H

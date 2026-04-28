@@ -13,6 +13,20 @@ AdminDashboard::AdminDashboard(Inventory* inv, admin &a, QWidget* parent)
 
     ui->stackedWidget->setCurrentIndex(0);
     setSidebarActive(ui->overviewBtn);
+    string fullName = this->a.getFullName(); string initials;
+    char *ptr = &fullName[0];
+    for(int i = 0; ptr[i] != '\0'; i++){
+        if(i == 0){
+            initials += ptr[i];
+        }
+        else if(ptr[i] == ' ' && ptr[i + 1] != '\0'){
+            if((ptr[i + 1] >= 'A' && ptr[i + 1] <= 'Z') || (ptr[i + 1] >= 'a' && ptr[i + 1] <= 'z')){
+                initials += ptr[i + 1];
+            }
+        }
+    }
+    QString qInitials = QString::fromStdString(initials).toUpper();
+    ui->adminAvatarLabel->setText(qInitials);
 }
 
 AdminDashboard::~AdminDashboard()
@@ -239,8 +253,7 @@ void AdminDashboard::onToggleMaintenance()
     int row = ui->maintTable->currentRow();
 
     if (row < 0) {
-        QMessageBox::warning(this, "No Selection",
-                             "Please select a car from the list first.");
+        QMessageBox::warning(this, "No Selection", "Please select a car from the list first.");
         return;
     }
 
@@ -254,8 +267,8 @@ void AdminDashboard::onToggleMaintenance()
         msg = "Maintenance flagged for: " + car->getName();
     else
         msg = "Maintenance cleared for: " + car->getName();
+    QMessageBox msgBox;
 
-    QMessageBox::information(this, "Maintenance Updated", msg.c_str());
     refreshAll();
 }
 
@@ -264,8 +277,7 @@ void AdminDashboard::onToggleAvailability()
     int row = ui->availTable->currentRow();
 
     if (row < 0) {
-        QMessageBox::warning(this, "No Selection",
-                             "Please select a car from the list first.");
+        QMessageBox::warning(this, "No Selection", "Please select a car from the list first.");
         return;
     }
 

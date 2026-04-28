@@ -46,14 +46,15 @@ void StringArray::sort() {
 int StringArray::size() const { return count; }
 string StringArray::operator[](int i) const { return data[i]; }
 
-Car::Car(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price)
-    : type(t), company(comp), carName(name), fuelType(fuel), spec(sp), colours(col), available(avail), maintenanceRequired(maint), pricePerKm(price) {}
+Car::Car(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price)
+    : cardID(id), type(t), company(comp), carName(name), fuelType(fuel), spec(sp), colours(col), available(avail), maintenanceRequired(maint), pricePerKm(price) {}
 string Car::getType() const { return type; }
 string Car::getCompany() const { return company; }
 string Car::getName() const { return carName; }
 int Car::getFuelType() const { return fuelType; }
 string Car::getSpec() const { return spec; }
 string Car::getColour() const { return colours; }
+string Car::getCardId()const { return cardID; }
 bool Car::isAvailable() const { return available; }
 bool Car::needsMaintenance() const { return maintenanceRequired; }
 double Car::getPrice() const { return pricePerKm; }
@@ -67,26 +68,26 @@ string Car::getBaseDataRight() const {
 }
 string Car::toSingleStr() const {
     string fStr = (fuelType == 1) ? "EV" : "Petrol";
-    return getBaseDataLeft() + "," + fStr + "," + spec + "," + getBaseDataRight();
+    return getCardId() + "," + getBaseDataLeft() + "," + fStr + "," + spec + "," + getBaseDataRight();
 }
 
-Sedan::Sedan(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int trunk, bool sun)
-    : Car(t, comp, name, fuel, sp, col, avail, maint, price), trunkCapacity(trunk), hasSunroof(sun) {}
+Sedan::Sedan(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int trunk, bool sun)
+    : Car(id, t, comp, name, fuel, sp, col, avail, maint, price), trunkCapacity(trunk), hasSunroof(sun) {}
 int Sedan::getTrunk() const { return trunkCapacity; }
 bool Sedan::getSunroof() const { return hasSunroof; }
 
-SUV::SUV(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool fwd, int gc)
-    : Car(t, comp, name, fuel, sp, col, avail, maint, price), is4WD(fwd), groundClearanceMm(gc) {}
+SUV::SUV(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool fwd, int gc)
+    : Car(id, t, comp, name, fuel, sp, col, avail, maint, price), is4WD(fwd), groundClearanceMm(gc) {}
 bool SUV::get4WD() const { return is4WD; }
 int SUV::getGroundClearance() const { return groundClearanceMm; }
 
-Hatchback::Hatchback(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool wiper, bool fold)
-    : Car(t, comp, name, fuel, sp, col, avail, maint, price), hasRearWiper(wiper), foldableSeats(fold) {}
+Hatchback::Hatchback(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, bool wiper, bool fold)
+    : Car(id, t, comp, name, fuel, sp, col, avail, maint, price), hasRearWiper(wiper), foldableSeats(fold) {}
 bool Hatchback::getRearWiper() const { return hasRearWiper; }
 bool Hatchback::getFoldableSeats() const { return foldableSeats; }
 
-Minivan::Minivan(string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int seats, bool sliding)
-    : Car(t, comp, name, fuel, sp, col, avail, maint, price), seatCount(seats), slidingDoors(sliding) {}
+Minivan::Minivan(string id, string t, string comp, string name, int fuel, string sp, string col, bool avail, bool maint, double price, int seats, bool sliding)
+    : Car(id, t, comp, name, fuel, sp, col, avail, maint, price), seatCount(seats), slidingDoors(sliding) {}
 int Minivan::getSeats() const { return seatCount; }
 bool Minivan::getSlidingDoors() const { return slidingDoors; }
 
@@ -137,19 +138,20 @@ void Inventory::loadFromFile(const string& fileName) {
     string line;
     while (getline(file, line)) {
         StringArray p = splitLine(line, ',');
-        if (p.size() < 9) continue;
-        string type = trim(p[0]);
+        if (p.size() < 10) continue;
+        string carID = trim(p[0]);
+        string type = trim(p[1]);
         string typeL = toLower(type);
-        string comp = trim(p[1]), name = trim(p[2]), fuelStr = toLower(trim(p[3]));
+        string comp = trim(p[2]), name = trim(p[3]), fuelStr = toLower(trim(p[4]));
         int fuelVal = (fuelStr == "ev") ? 1 : 0;
-        string spec = trim(p[4]), col = trim(p[5]);
-        bool avail = (toLower(trim(p[6])) == "yes"), maint = (toLower(trim(p[7])) == "yes");
-        double pr = stod(trim(p[8]));
+        string spec = trim(p[5]), col = trim(p[6]);
+        bool avail = (toLower(trim(p[7])) == "yes"), maint = (toLower(trim(p[8])) == "yes");
+        double pr = stod(trim(p[9]));
         if (carCount == carCapacity) resizeCarArray();
-        if (typeL == "suv") carArray[carCount++] = new SUV(type, comp, name, fuelVal, spec, col, avail, maint, pr, true, 210);
-        else if (typeL == "sedan") carArray[carCount++] = new Sedan(type, comp, name, fuelVal, spec, col, avail, maint, pr, 500, true);
-        else if (typeL == "minivan") carArray[carCount++] = new Minivan(type, comp, name, fuelVal, spec, col, avail, maint, pr, 7, true);
-        else carArray[carCount++] = new Hatchback(type, comp, name, fuelVal, spec, col, avail, maint, pr, true, true);
+        if (typeL == "suv") carArray[carCount++] = new SUV(carID, type, comp, name, fuelVal, spec, col, avail, maint, pr, true, 210);
+        else if (typeL == "sedan") carArray[carCount++] = new Sedan(carID, type, comp, name, fuelVal, spec, col, avail, maint, pr, 500, true);
+        else if (typeL == "minivan") carArray[carCount++] = new Minivan(carID, type, comp, name, fuelVal, spec, col, avail, maint, pr, 7, true);
+        else carArray[carCount++] = new Hatchback(carID, type, comp, name, fuelVal, spec, col, avail, maint, pr, true, true);
     }
 }
 void Inventory::saveToFile(const string& fileName) {
@@ -190,4 +192,14 @@ void Inventory::removeCar(int index) {
             carCount = carCount - 1;
         }
     }
+}
+Car* Inventory::getCarFromID(string CarID){
+    Car* car;
+    for(int i = 0; i < carCount; i++){
+        car = getCarAt(i);
+        if(car->getCardId() == CarID){
+            return car;
+        }
+    }
+    return nullptr;
 }

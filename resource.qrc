@@ -14,5 +14,7 @@
         <file>images/profile.png</file>
         <file>images/rent.png</file>
         <file>images/overview.png</file>
+        <file>images/checkmark.png.png</file>
+        <file>images/calendar.png</file>
     </qresource>
 </RCC>
