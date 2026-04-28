@@ -18,6 +18,7 @@ public:
     explicit userDashboard(customer c, QWidget *parent = nullptr);
     ~userDashboard();
 private slots:
+    void on_overviewBtn_clicked();
     void on_logoutBtn_clicked();
     void initializeFleet();
     void applyFilter();

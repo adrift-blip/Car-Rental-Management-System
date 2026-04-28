@@ -36,6 +36,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         admindashboard.cpp admindashboard.h admindashboard.ui
         rental.h rental.cpp
         rentalhistory.h rentalhistory.cpp
+        Payment.cpp
+        Payment.h
+        Invoice.h
+        Invoice.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

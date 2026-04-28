@@ -1,0 +1,394 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\userdashboard.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:userdashboard.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\userdashboard.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:userdashboard.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\user.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:user.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\user.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:user.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signupform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:signupform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signupform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:signupform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signinform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:signinform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signinform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:signinform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\resource.qrc||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:resource.qrc||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\personaldetailsform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:personaldetailsform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\personaldetailsform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:personaldetailsform.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\inventory.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:inventory.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\inventory.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:inventory.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\customer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:customer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\customer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:customer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admindashboard.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:admindashboard.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admindashboard.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:admindashboard.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admin.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:admin.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:admin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:05.478Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "userdashboard.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\userdashboard.h",
+              "RelativeDocumentMoniker": "userdashboard.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\userdashboard.h",
+              "RelativeToolTip": "userdashboard.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:41:40.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "userdashboard.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\userdashboard.cpp",
+              "RelativeDocumentMoniker": "userdashboard.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\userdashboard.cpp",
+              "RelativeToolTip": "userdashboard.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:38.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "user.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\user.h",
+              "RelativeDocumentMoniker": "user.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\user.h",
+              "RelativeToolTip": "user.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:41:37.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "user.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\user.cpp",
+              "RelativeDocumentMoniker": "user.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\user.cpp",
+              "RelativeToolTip": "user.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:36.713Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "signupform.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signupform.h",
+              "RelativeDocumentMoniker": "signupform.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signupform.h",
+              "RelativeToolTip": "signupform.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:41:35.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "signupform.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signupform.cpp",
+              "RelativeDocumentMoniker": "signupform.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signupform.cpp",
+              "RelativeToolTip": "signupform.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:34.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "signinform.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signinform.h",
+              "RelativeDocumentMoniker": "signinform.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signinform.h",
+              "RelativeToolTip": "signinform.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:41:24.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "signinform.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signinform.cpp",
+              "RelativeDocumentMoniker": "signinform.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\signinform.cpp",
+              "RelativeToolTip": "signinform.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:22.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "resource.qrc",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\resource.qrc",
+              "RelativeDocumentMoniker": "resource.qrc",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\resource.qrc",
+              "RelativeToolTip": "resource.qrc",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-27T16:41:15.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "personaldetailsform.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\personaldetailsform.h",
+              "RelativeDocumentMoniker": "personaldetailsform.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\personaldetailsform.h",
+              "RelativeToolTip": "personaldetailsform.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:41:11.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "personaldetailsform.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\personaldetailsform.cpp",
+              "RelativeDocumentMoniker": "personaldetailsform.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\personaldetailsform.cpp",
+              "RelativeToolTip": "personaldetailsform.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:10.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "inventory.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\inventory.h",
+              "RelativeDocumentMoniker": "inventory.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\inventory.h",
+              "RelativeToolTip": "inventory.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:41:04.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "inventory.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\inventory.cpp",
+              "RelativeDocumentMoniker": "inventory.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\inventory.cpp",
+              "RelativeToolTip": "inventory.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:03.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "customer.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\customer.h",
+              "RelativeDocumentMoniker": "customer.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\customer.h",
+              "RelativeToolTip": "customer.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:41:02.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "customer.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\customer.cpp",
+              "RelativeDocumentMoniker": "customer.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\customer.cpp",
+              "RelativeToolTip": "customer.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:41:01.791Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "admindashboard.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admindashboard.h",
+              "RelativeDocumentMoniker": "admindashboard.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admindashboard.h",
+              "RelativeToolTip": "admindashboard.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:40:55.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "admindashboard.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admindashboard.cpp",
+              "RelativeDocumentMoniker": "admindashboard.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admindashboard.cpp",
+              "RelativeToolTip": "admindashboard.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:40:54.63Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "admin.h",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admin.h",
+              "RelativeDocumentMoniker": "admin.h",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admin.h",
+              "RelativeToolTip": "admin.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-27T16:40:53.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "admin.cpp",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admin.cpp",
+              "RelativeDocumentMoniker": "admin.cpp",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\admin.cpp",
+              "RelativeToolTip": "admin.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-27T16:40:46.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\ahmed\\OneDrive\\Desktop\\Car-Rental-Management-System\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-27T16:40:44.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "vcpkg.cmake",
+              "DocumentMoniker": "C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
+              "ToolTip": "C:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake",
+              "ViewState": "AgIAAGsDAAAAAAAAAAAgwIsDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-27T16:39:03.472Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

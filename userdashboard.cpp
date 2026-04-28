@@ -11,6 +11,7 @@
 #include <QColor>
 #include <QMessageBox>
 #include<QHeaderView>
+#include <fstream>
 using namespace std;
 userDashboard::userDashboard(customer c, QWidget *parent)
     : QWidget(parent)
@@ -19,6 +20,7 @@ userDashboard::userDashboard(customer c, QWidget *parent)
     i = new Inventory();
     this->setAttribute(Qt::WA_DeleteOnClose);
     ui->setupUi(this);
+    ui->overviewBtn->click();
     connect(ui->overviewBtn, &QPushButton::clicked, this, [=]() {
         ui->stackedWidget->setCurrentWidget(ui->overviewPage);
     });
@@ -90,6 +92,71 @@ userDashboard::userDashboard(customer c, QWidget *parent)
     initializeFleet();
     createHistoryTable();
     initializeBookingPage();
+}
+void userDashboard::on_overviewBtn_clicked(){
+    ui->greetingLabel->setText("Welcome, " + QString::fromStdString(c.getFullName()) + "!");
+    ui->greetingLabel->setAlignment(Qt::AlignCenter);
+    ui->points->setAlignment(Qt::AlignCenter);
+    ui->points->setText(QString::number(c.getLoyaltyPoints()));
+    ui->currentTier->setAlignment(Qt::AlignCenter);
+    ui->tierRanking->setAlignment(Qt::AlignCenter);
+    int total = c.getRentalHistory().getNoOfRentals();
+    QPalette palette = ui->tierRanking->palette();
+    if(total>0){
+        ui->NoCarsLabel->setVisible(false);
+        ui->latestRentalLabel->setVisible(true);
+        ui->latestStatusLabel->setVisible(true);
+        ui->lastDateLabel->setVisible(true);
+        ui->latestRentalText->setVisible(true);
+        ui->latestStatusText->setVisible(true);
+        ui->lastDateText->setVisible(true);
+        rental latest = c.getRentalHistory().getRentalAt(total - 1);
+        ui->latestRentalLabel->setText(QString::fromStdString(latest.getCardID()));
+        ui->latestStatusLabel->setText(QString::fromStdString(latest.getStatus()));
+        ui->lastDateLabel->setText(QString::fromStdString(latest.getEndDate()));
+    }else{
+        ui->latestRentalLabel->setVisible(false);
+        ui->latestStatusLabel->setVisible(false);
+        ui->lastDateLabel->setVisible(false);
+        ui->latestRentalText->setVisible(false);
+        ui->latestStatusText->setVisible(false);
+        ui->lastDateText->setVisible(false);
+        ui->NoCarsLabel->setVisible(true);
+        ui->NoCarsLabel->setAlignment(Qt::AlignCenter);
+    }
+    int loyaltyPoints = this->c.getLoyaltyPoints();
+    if(loyaltyPoints >= 750){
+        ui->platinum->setVisible(true);
+        ui->gold->setVisible(false);
+        ui->silver->setVisible(false);
+        ui->bronze->setVisible(false);
+        ui->tierRanking->setText("PLATINUM");
+        ui->tierRanking->setStyleSheet("font-size: 35px;font-weight: bold;background: transparent;font-family: Segoe UI;border: none;border-radius: 20px;color: #E03F08;");
+    }
+    else if(loyaltyPoints >= 400 && loyaltyPoints < 750){
+        ui->platinum->setVisible(false);
+        ui->gold->setVisible(true);
+        ui->silver->setVisible(false);
+        ui->bronze->setVisible(false);
+        ui->tierRanking->setText("GOLD");
+        ui->tierRanking->setStyleSheet("font-size: 35px;font-weight: bold;background: transparent;font-family: Segoe UI;border: none;border-radius: 20px;color: #EFBF04;");
+    }
+    else if(loyaltyPoints >= 100 && loyaltyPoints < 400){
+        ui->platinum->setVisible(false);
+        ui->gold->setVisible(false);
+        ui->silver->setVisible(true);
+        ui->bronze->setVisible(false);
+        ui->tierRanking->setText("SILVER");
+        ui->tierRanking->setStyleSheet("font-size: 35px;font-weight: bold;background: transparent;font-family: Segoe UI;border: none;border-radius: 20px;color: #A8A9AD;");
+    }
+    else{
+        ui->platinum->setVisible(false);
+        ui->gold->setVisible(false);
+        ui->silver->setVisible(false);
+        ui->bronze->setVisible(true);
+        ui->tierRanking->setText("BRONZE");
+        ui->tierRanking->setStyleSheet("font-size: 35px;font-weight: bold;background: transparent;font-family: Segoe UI;border: none;border-radius: 20px;color: #794108;");
+    }
 }
 void userDashboard::on_logoutBtn_clicked(){
     QApplication::quit();
