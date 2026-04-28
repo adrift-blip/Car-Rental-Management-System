@@ -16,5 +16,10 @@
         <file>images/overview.png</file>
         <file>images/checkmark.png.png</file>
         <file>images/calendar.png</file>
+        <file>images/inverted companyLogo2.png</file>
+        <file>images/Gold.png</file>
+        <file>images/Platinum.png</file>
+        <file>images/Silver.png</file>
+        <file>images/Bronze.png</file>
     </qresource>
 </RCC>
