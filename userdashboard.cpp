@@ -12,6 +12,9 @@
 #include <QMessageBox>
 #include<QHeaderView>
 #include <fstream>
+#include <QHeaderView>
+#include "invoice.h"
+#include "Payment.h"
 using namespace std;
 userDashboard::userDashboard(customer c, QWidget *parent)
     : QWidget(parent)
@@ -36,9 +39,6 @@ userDashboard::userDashboard(customer c, QWidget *parent)
     connect(ui->bookingsBtn, &QPushButton::clicked, this, [=]() {
         ui->stackedWidget->setCurrentWidget(ui->myBookingPage);
         loadFromHistory();
-    });
-    connect(ui->invoiceBtn, &QPushButton::clicked, this, [=]() {
-        ui->stackedWidget->setCurrentWidget(ui->overviewPage);
     });
     connect(ui->profileBtn, &QPushButton::clicked, this, [=]() {
         ui->stackedWidget->setCurrentWidget(ui->profilePage);
@@ -157,6 +157,70 @@ void userDashboard::on_overviewBtn_clicked(){
         ui->tierRanking->setText("BRONZE");
         ui->tierRanking->setStyleSheet("font-size: 35px;font-weight: bold;background: transparent;font-family: Segoe UI;border: none;border-radius: 20px;color: #794108;");
     }
+}
+void userDashboard::on_invoiceBtn_clicked(){
+    ui->stackedWidget->setCurrentWidget(ui->invoicesPage);
+    ui->breakdownTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->breakdownTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->breakdownTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->breakdownTable->verticalHeader()->setVisible(false);
+
+    if(c.getRentalHistory().getNoOfRentals() == 0){
+        ui->invoiceCard->setVisible(false);
+        ui->paymentCard->setVisible(false);
+        ui->label_15->setText("No bookings found.");
+        return;
+    }
+    ui->invoiceCard->setVisible(true);
+    ui->paymentCard->setVisible(true);
+    ui->label_15->setText("Latest Invoice");
+    rental latest = c.getRentalHistory().getRentalAt(c.getRentalHistory().getNoOfRentals() - 1);
+    string carName = "Unknown";
+    Car* car = i->getCarFromID(latest.getCardID());
+    if(car != nullptr)
+        carName = car->getName();
+    QDate start = QDate::fromString(QString::fromStdString(latest.getStartDate()), "dd/MM/yyyy");
+    QDate end = QDate::fromString(QString::fromStdString(latest.getEndDate()), "dd/MM/yyyy");
+    int days = start.daysTo(end);
+    double driverCost = latest.getHasDriver()    ? 1000.0 * days : 0.0;
+    double insuranceCost = latest.getHasInsurance() ? 2000.0 * days : 0.0;
+    double deliveryCost = latest.getHasDelivery()  ? 2000.0 * days : 0.0;
+    double baseCost = car != nullptr ? car->getPrice() * days : 0.0;
+    Invoice inv(latest.getRentalID(),
+                c.getFullName(),
+                carName,
+                latest.getCardID(),
+                latest.getStartDate(),
+                latest.getEndDate(),
+                days,
+                baseCost,
+                driverCost,
+                insuranceCost,
+                deliveryCost,
+                latest.getHasDriver(),
+                latest.getHasInsurance(),
+                latest.getHasDelivery(),
+                latest.getDiscountRate(),
+                0.05);
+    Payment pay(inv.getTotalCost(), latest.getRentalPrice());
+    populateInvoicePage(inv, pay);
+}
+void userDashboard::populateInvoicePage(const Invoice& inv, const Payment& pay){
+    ui->invoiceIDLabel->setText(QString::fromStdString("Invoice #" + inv.getRentalID()));
+    ui->invoiceSubtitleLabel->setText(QString::fromStdString(inv.getCustomerName() + " - " + inv.getCarName()));
+    ui->invoiceStatusLabel->setText("Upcoming");
+    ui->rentalDaysValue->setText(QString::number(inv.getRentalDays()));
+    ui->dailyRateValue->setText("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getBaseCost() / inv.getRentalDays())));
+    ui->startDateValue->setText(QString::fromStdString(inv.getStartDate()));
+    ui->endDateValue->setText(QString::fromStdString(inv.getEndDate()));
+    ui->breakdownTable->setItem(0, 1, new QTableWidgetItem("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getBaseCost()))));
+    ui->breakdownTable->setItem(1, 1, new QTableWidgetItem("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getAddOnTotal()))));
+    ui->breakdownTable->setItem(2, 1, new QTableWidgetItem(QString::fromStdString(inv.getAddOnDetail())));
+    ui->breakdownTable->setItem(3, 1, new QTableWidgetItem("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getTaxAmount()))));
+    ui->breakdownTable->setItem(4, 1, new QTableWidgetItem("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getDiscountAmount()))));
+    ui->paymentMethodValue->setText(QString::fromStdString(pay.getPaymentStatus()));
+    ui->paymentStatusValue->setText(pay.getAmountsMatch() ? "Yes" : "No");
+    ui->remainingBalanceValue->setText("Rs " + QString::fromStdString(Inventory::formatPrice(pay.getRemainingBalance())));
 }
 void userDashboard::on_logoutBtn_clicked(){
     QApplication::quit();
@@ -459,8 +523,9 @@ void userDashboard::on_confirmBtn_clicked(){
         int num = rand() % 10;
         rentalID += to_string(num);
     }
-    rental r(rentalID, c.getUserName(), startDate, endDate, userSelection->getCardId(), total, "Upcoming");
+    rental r(rentalID, c.getUserName(), startDate, endDate, userSelection->getCardId(), total, "Upcoming", ui->driverCheck->isChecked(), ui->insuranceCheck->isChecked(), ui->deliveryCheck->isChecked(), discount);
     c.getRentalHistory().appendNewRental(r);
+    c.updateLoyaltyPoints(10 * duration);
     ui->typeBooking->setCurrentIndex(0);
     ui->carBooking->clear();
     ui->driverCheck->setChecked(false);

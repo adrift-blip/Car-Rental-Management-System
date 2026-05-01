@@ -13,7 +13,6 @@ personalDetailsForm::personalDetailsForm(User *u, QWidget *parent)
     this->setAttribute(Qt::WA_DeleteOnClose);
     ui->setupUi(this);
 }
-
 void personalDetailsForm::on_registerButton_clicked(){
     string fullName = ui->fullNameEdit->text().toStdString();
     string liscenseNo = ui->liscenseEdit->text().toStdString();

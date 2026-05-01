@@ -21,7 +21,7 @@ public:
     string getUserPassword()const;
     int getPrivilegeLevel()const;
     bool loginValid() const;
-    void signUp() const;
+    bool signUp() const;
     void removeUser() const;
     void addAdmin() const;
     User& operator=(User& other){
@@ -32,6 +32,7 @@ public:
         }
         return *this;
     }
+    bool isStrongPassword(const string& password);
     friend istream &operator>>(istream &in, User &user);
 };
 istream &operator>>(istream &in, User &user);

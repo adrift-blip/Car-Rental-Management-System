@@ -22,6 +22,7 @@ public:
     void setLoyaltyPoints(int lp);
     void addPersonalDetails() const;
     rentalHistory& getRentalHistory();
+    void updateLoyaltyPoints(int pointsToAdd);
     ~customer();
 };
 

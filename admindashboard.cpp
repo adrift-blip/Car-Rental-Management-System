@@ -1,5 +1,6 @@
 #include "admindashboard.h"
 #include "ui_admindashboard.h"
+#include <fstream>
 
 AdminDashboard::AdminDashboard(Inventory* inv, admin &a, QWidget* parent)
     : QWidget(parent),
@@ -10,7 +11,6 @@ AdminDashboard::AdminDashboard(Inventory* inv, admin &a, QWidget* parent)
     setupTables();
     updateOverviewStats();
     connectSignals();
-
     ui->stackedWidget->setCurrentIndex(0);
     setSidebarActive(ui->overviewBtn);
     string fullName = this->a.getFullName(); string initials;
@@ -27,6 +27,7 @@ AdminDashboard::AdminDashboard(Inventory* inv, admin &a, QWidget* parent)
     }
     QString qInitials = QString::fromStdString(initials).toUpper();
     ui->adminAvatarLabel->setText(qInitials);
+    ui->adminNameLabel->setText(QString::fromStdString(fullName));
 }
 
 AdminDashboard::~AdminDashboard()
@@ -44,12 +45,14 @@ void AdminDashboard::refreshAll()
 
 void AdminDashboard::connectSignals()
 {
-    connect(ui->overviewBtn,    &QPushButton::clicked, this, &AdminDashboard::onOverviewClicked);
-    connect(ui->maintBtn,       &QPushButton::clicked, this, &AdminDashboard::onMaintClicked);
-    connect(ui->availBtn,       &QPushButton::clicked, this, &AdminDashboard::onAvailClicked);
-    connect(ui->allCarsBtn,     &QPushButton::clicked, this, &AdminDashboard::onAllCarsClicked);
+    connect(ui->overviewBtn, &QPushButton::clicked, this, &AdminDashboard::onOverviewClicked);
+    connect(ui->maintBtn, &QPushButton::clicked, this, &AdminDashboard::onMaintClicked);
+    connect(ui->availBtn, &QPushButton::clicked, this, &AdminDashboard::onAvailClicked);
+    connect(ui->allCarsBtn, &QPushButton::clicked, this, &AdminDashboard::onAllCarsClicked);
     connect(ui->toggleMaintBtn, &QPushButton::clicked, this, &AdminDashboard::onToggleMaintenance);
     connect(ui->toggleAvailBtn, &QPushButton::clicked, this, &AdminDashboard::onToggleAvailability);
+    connect(ui->addAdminBtn, &QPushButton::clicked, this, &AdminDashboard::onAddAdminClicked);
+    connect(ui->confirmBtn, &QPushButton::clicked, this, &AdminDashboard::on_confirmBtn_Clicked);
 }
 
 void AdminDashboard::configureTable(QTableWidget* t)
@@ -183,9 +186,9 @@ void AdminDashboard::populateAllCarsTable(){ populateTable(ui->allCarsTable); }
 
 void AdminDashboard::updateOverviewStats()
 {
-    int total       = inventory->getCarCount();
-    int onMaint     = 0;
-    int unavail     = 0;
+    int total = inventory->getCarCount();
+    int onMaint = 0;
+    int unavail = 0;
     int readyToRent = 0;
 
     for (int i = 0; i < total; i++) {
@@ -209,13 +212,14 @@ void AdminDashboard::updateOverviewStats()
 
 void AdminDashboard::setSidebarActive(QPushButton* active)
 {
-    QPushButton* navBtns[4];
+    QPushButton* navBtns[5];
     navBtns[0] = ui->overviewBtn;
     navBtns[1] = ui->maintBtn;
     navBtns[2] = ui->availBtn;
-    navBtns[3] = ui->allCarsBtn;
+    navBtns[4] = ui->allCarsBtn;
+    navBtns[3] = ui->addAdminBtn;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         navBtns[i]->setChecked(navBtns[i] == active);
     }
 }
@@ -243,9 +247,14 @@ void AdminDashboard::onAvailClicked()
 
 void AdminDashboard::onAllCarsClicked()
 {
-    ui->stackedWidget->setCurrentIndex(3);
+    ui->stackedWidget->setCurrentIndex(4);
     setSidebarActive(ui->allCarsBtn);
     populateAllCarsTable();
+}
+
+void AdminDashboard::onAddAdminClicked(){
+    ui->stackedWidget->setCurrentIndex(3);
+    setSidebarActive(ui->addAdminBtn);
 }
 
 void AdminDashboard::onToggleMaintenance()
@@ -294,4 +303,42 @@ void AdminDashboard::onToggleAvailability()
 
     QMessageBox::information(this, "Availability Updated", msg.c_str());
     refreshAll();
+}
+
+void AdminDashboard::on_confirmBtn_Clicked(){
+    string username = ui->newAdminName->text().toStdString();
+    string password = ui->newPassword->text().toStdString();
+    string fullname = ui->newFullName->text().toStdString();
+    string adminID = ui->newAdminID->text().toStdString();
+    if(username.empty() || password.empty() || fullname.empty() || adminID.empty()){
+        QMessageBox::warning(this, "Error", "Please fill in all fields");
+        return;
+    }
+    else{
+        admin newAdmin(username, password,1,fullname,adminID);
+            if(!newAdmin.isStrongPassword(password)){
+                QMessageBox::warning(this, "Error", "Password is not Strong.\n\nA strong password must have:\n"
+                                                    "1. Atleast 1 uppercase.\n"
+                                                    "2. Atleast 1 lowercase.\n"
+                                                    "3. Atleast 1 digit.\n"
+                                                    "4. Atleast 1 special character.\n"
+                                                    "5. More than or equal to 8 chracters.");
+                return;
+            }
+            if(newAdmin.signUp()){
+                ofstream outFile("../../data/users.txt", ios::app);
+                if (!outFile) {
+                    throw invalid_argument("Unable to open file or maybe file does not exist");
+                }
+                outFile << endl << username << "," << password << ",1," <<  fullname << "," << adminID;
+                QMessageBox::information(this,"Successful", "New Admin has been added sucessfully");
+                ui->newAdminName->clear();
+                ui->newPassword->clear();
+                ui->newFullName->clear();
+                ui->newAdminID->clear();
+            }
+            else
+            {QMessageBox::warning(this, "Error", "This user already exists");
+                return;}
+    }
 }

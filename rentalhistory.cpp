@@ -30,18 +30,27 @@ rentalHistory::rentalHistory(string filename, string userName){
     int i = 0;
     while (getline(inFile, line)) {
         stringstream sample(line);
-        string rentalID, currentUserName, sDate, eDate, carID, state, tcString;
-        double tc;
+        string rentalID, currentUserName, sDate, eDate, carID, state, tcString, driverStr, insuranceStr, deliveryStr, discountStr;
+        double tc, discountRate;
+        bool driver, insurance, delivery;
         getline(sample, rentalID, ',');
         getline(sample, currentUserName, ',');
         getline(sample, sDate, ',');
         getline(sample, eDate, ',');
         getline(sample, carID, ',');
         getline(sample, tcString, ',');
-        getline(sample, state);
+        getline(sample, state, ',');
+        getline(sample, driverStr, ',');
+        getline(sample, insuranceStr, ',');
+        getline(sample, deliveryStr, ',');
+        getline(sample, discountStr);
         tc = stof(tcString);
+        driver = stoi(driverStr);
+        insurance = stoi(insuranceStr);
+        delivery = stoi(deliveryStr);
+        discountRate = stod(discountStr);
         if (currentUserName == userName) {
-            *(array + i) = rental (rentalID, currentUserName, sDate, eDate, carID, tc, state);
+            *(array + i) = rental(rentalID, currentUserName, sDate, eDate, carID, tc, state, driver, insurance, delivery, discountRate);
             i++;
         }
     }
@@ -92,6 +101,6 @@ void rentalHistory::appendNewRental(const rental& r){
     if(!inFile){
         exit(1);
     }
-    inFile << endl << r.getRentalID() << "," << r.getNameOfBooker() << "," << r.getStartDate() << "," << r.getEndDate() << "," << r.getCardID() << "," << r.getRentalPrice() << "," << r.getStatus();
+    inFile << endl << r.getRentalID() << "," << r.getNameOfBooker() << "," << r.getStartDate() << "," << r.getEndDate() << "," << r.getCardID() << "," << r.getRentalPrice() << "," << r.getStatus() << "," << r.getHasDriver() << "," << r.getHasInsurance() << "," << r.getHasDelivery() << "," << r.getDiscountRate();
     inFile.close();
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>550</height>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -144,26 +144,25 @@ color: #1a1a2e;
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>410</y>
+     <y>440</y>
      <width>320</width>
      <height>16</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">font-size: 12px;
-color: #555555;
-background-color: transparent;
-</string>
+    color: #555555;
+    background-color: transparent;</string>
    </property>
    <property name="text">
-    <string>I have read and agree to the Terms and Conditions</string>
+    <string>I have read and agreed to the Terms and Conditions</string>
    </property>
   </widget>
   <widget class="QPushButton" name="signUpButton">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>450</y>
+     <y>470</y>
      <width>320</width>
      <height>42</height>
     </rect>
@@ -179,6 +178,41 @@ font-weight: bold;
    </property>
    <property name="text">
     <string>Sign Up</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="tcsButton">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>410</y>
+     <width>131</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: #000045;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>Terms and Conditions</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="backButton">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>520</y>
+     <width>91</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 12px;
+color: #555555;
+background-color: transparent;</string>
+   </property>
+   <property name="text">
+    <string>Back to Sign-in</string>
    </property>
   </widget>
  </widget>

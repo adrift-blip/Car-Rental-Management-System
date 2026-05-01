@@ -75,11 +75,11 @@ bool User::loginValid() const{
     inFile.close();
     return false;
 }
-void User::signUp() const{
+bool User::signUp() const{
     ifstream inFile("../../data/users.txt");
     string line;
     if (!inFile) {
-        return;
+        return false;
     }
     while (getline(inFile, line)) {
         stringstream sample(line);
@@ -87,14 +87,23 @@ void User::signUp() const{
         getline(sample, currentUserName, ',');
         //An equal operator is not overloaded and used here as when it was used it crashed the program
         if (currentUserName == this->userName) {
-            throw invalid_argument("This user already exists! Please return to sign in");
+            inFile.close();
+            return false;
         }
     }
     inFile.close();
-    ofstream outFile("../../data/users.txt", ios::app);
-    if (!outFile) {
-        throw invalid_argument("Unable to open file or maybe file does not exist");
+    return true;
+}
+bool User::isStrongPassword(const string& password) {
+    if (password.length() < 8) return false;
+
+    bool hasUpper = false, hasLower = false, hasDigit = false, hasSpecial = false;
+
+    for (char c : password) {
+        if (isupper(c)) hasUpper = true;
+        if (islower(c)) hasLower = true;
+        if (isdigit(c)) hasDigit = true;
+        if (ispunct(c)) hasSpecial = true;
     }
-    outFile << endl << userName << "," << userPassword << "," << privilegeLevel << "," << flush;
-    outFile.close();
+    return hasUpper && hasLower && hasDigit && hasSpecial;
 }

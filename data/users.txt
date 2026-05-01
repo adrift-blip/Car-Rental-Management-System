@@ -25,3 +25,6 @@ nortypants,35356767,0,muhammmad usman farid badar ,09876543,0
  mufb,23456789stupid23456789,0,mufb,1234567890okjbvcfghj,0
 hamza,12345,0,hamza mehboob,1234,0
 ahmed,123321,0,professor poopypants,123321,0
+baby,Pass#word19,1,ball wizard,09ji
+checking,Pass#word19,1,checking again,908089hjkhk
+testing,Pass#word19,0,testing again,hdjkas909u0,0

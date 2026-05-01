@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     signInForm w;
+    a.setStyleSheet("QMessageBox { background-color: #ffffff; color: #111111; } QMessageBox QLabel { color: #111111; } QMessageBox QPushButton { background-color: #F3F4F6; color: #111111; border: 1px solid #E5E7EB; border-radius: 6px; padding: 6px 16px; } QMessageBox QPushButton:hover { background-color: #E5E7EB; }");
     w.show();
     return a.exec();
 }

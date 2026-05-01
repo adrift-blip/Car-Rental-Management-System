@@ -1,6 +1,7 @@
 #include "customer.h"
 #include "user.h"
 #include <fstream>
+#include <sstream>
 customer::customer(): User(), rh(){
     fullName = "N/A";
     liscenseNum = "N/A";
@@ -51,10 +52,38 @@ void customer::addPersonalDetails() const{
     if (!outFile) {
         throw invalid_argument("Unable to open file or maybe file does not exist");
     }
-    outFile << fullName << "," << liscenseNum << "," << loyaltyPoints;
+    outFile << endl << getUserName() << "," << getUserPassword() << ",0," << fullName << "," << liscenseNum << "," << loyaltyPoints;
 }
 rentalHistory& customer::getRentalHistory(){
     return rh;
+}
+void customer::updateLoyaltyPoints(int pointsToAdd) {
+    loyaltyPoints += pointsToAdd;
+    ifstream inFile("../../data/users.txt");
+    ofstream tempFile("../../data/users_temp.txt");
+    if (!inFile || !tempFile) return;
+
+    string line;
+    while (getline(inFile, line)) {
+        stringstream ss(line);
+        string uname;
+        getline(ss, uname, ',');
+        if (uname == getUserName()) {
+            string pass, priv, fname, lic, pts;
+            getline(ss, pass, ',');
+            getline(ss, priv, ',');
+            getline(ss, fname, ',');
+            getline(ss, lic, ',');
+            tempFile << uname << "," << pass << "," << priv << "," << fname << "," << lic << "," << loyaltyPoints;
+        } else {
+            tempFile << line;
+        }
+        tempFile << "\n";
+    }
+    inFile.close();
+    tempFile.close();
+    remove("../../data/users.txt");
+    rename("../../data/users_temp.txt", "../../data/users.txt");
 }
 customer::~customer(){
 

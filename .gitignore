@@ -33,6 +33,10 @@ cmake_install.cmake
 Thumbs.db
 desktop.ini
 
+# IDE specific
+.vs/
+.vscode/
+
 # Debug/Release folders inside build
 debug/
 release/

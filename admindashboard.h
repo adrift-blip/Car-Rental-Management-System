@@ -34,6 +34,7 @@ private:
     void onMaintClicked();
     void onAvailClicked();
     void onAllCarsClicked();
+    void onAddAdminClicked();
     void onToggleMaintenance();
     void onToggleAvailability();
     void connectSignals();
@@ -45,6 +46,7 @@ private:
     void populateAllCarsTable();
     void updateOverviewStats();
     void setSidebarActive(QPushButton* active);
+    void on_confirmBtn_Clicked();
 };
 
 #endif

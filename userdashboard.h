@@ -5,6 +5,8 @@
 #include "inventory.h"
 #include "rental.h"
 #include "customer.h"
+#include "invoice.h"
+#include "Payment.h"
 
 namespace Ui {
 class userDashboard;
@@ -19,6 +21,7 @@ public:
     ~userDashboard();
 private slots:
     void on_overviewBtn_clicked();
+    void on_invoiceBtn_clicked();
     void on_logoutBtn_clicked();
     void initializeFleet();
     void applyFilter();
@@ -38,6 +41,7 @@ private:
     Inventory* i;
     Car* userSelection;
     double discount;
+    void populateInvoicePage(const Invoice& inv, const Payment& pay);
 };
 
 #endif // USERDASHBOARD_H
