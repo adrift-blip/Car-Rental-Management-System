@@ -16,9 +16,9 @@
 #include "invoice.h"
 #include "Payment.h"
 using namespace std;
-userDashboard::userDashboard(customer c, QWidget *parent)
+userDashboard::userDashboard(customer c, QWidget* previousWindow, QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::userDashboard), c(c)
+    , ui(new Ui::userDashboard), c(c), prev(previousWindow)
 {
     i = new Inventory();
     this->setAttribute(Qt::WA_DeleteOnClose);
@@ -60,6 +60,7 @@ userDashboard::userDashboard(customer c, QWidget *parent)
     ui->avatarLabel->setText(qInitials);
     ui->customerName->setText(QString::fromStdString(fullName));
     ui->fullNameLabel->setText(QString::fromStdString(fullName));
+    ui->fullNameField->setText(QString::fromStdString(fullName));
     ui->password->setText(QString::fromStdString(c.getUserPassword()));
     ui->liscenseNumField->setText(QString::fromStdString(c.getLiscenseNum()));
     ui->whatPoints->setText(QString::number(c.getLoyaltyPoints()));
@@ -89,6 +90,12 @@ userDashboard::userDashboard(customer c, QWidget *parent)
     tm* ltm = localtime(&currentTime);
     string date = to_string(ltm->tm_mday) + "/" + to_string(ltm->tm_mon + 1) + "/" + to_string(ltm->tm_year + 1900);
     i->loadFromFile("../../data/inventory.txt");
+    penalties = 0.0;
+    for(int j = 0; j < c.getRentalHistory().getNoOfRentals(); j++){
+        if(c.getRentalHistory().getRentalAt(j).getStatus() == "Not Returned"){
+            penalties += 5000;
+        }
+    }
     initializeFleet();
     createHistoryTable();
     initializeBookingPage();
@@ -164,7 +171,6 @@ void userDashboard::on_invoiceBtn_clicked(){
     ui->breakdownTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->breakdownTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     ui->breakdownTable->verticalHeader()->setVisible(false);
-
     if(c.getRentalHistory().getNoOfRentals() == 0){
         ui->invoiceCard->setVisible(false);
         ui->paymentCard->setVisible(false);
@@ -201,7 +207,7 @@ void userDashboard::on_invoiceBtn_clicked(){
                 latest.getHasInsurance(),
                 latest.getHasDelivery(),
                 latest.getDiscountRate(),
-                0.05);
+                0.05, penalties);
     Payment pay(inv.getTotalCost(), latest.getRentalPrice());
     populateInvoicePage(inv, pay);
 }
@@ -218,12 +224,14 @@ void userDashboard::populateInvoicePage(const Invoice& inv, const Payment& pay){
     ui->breakdownTable->setItem(2, 1, new QTableWidgetItem(QString::fromStdString(inv.getAddOnDetail())));
     ui->breakdownTable->setItem(3, 1, new QTableWidgetItem("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getTaxAmount()))));
     ui->breakdownTable->setItem(4, 1, new QTableWidgetItem("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getDiscountAmount()))));
+    ui->breakdownTable->setItem(5, 1, new QTableWidgetItem("Rs " + QString::fromStdString(Inventory::formatPrice(inv.getPenalties()))));
     ui->paymentMethodValue->setText(QString::fromStdString(pay.getPaymentStatus()));
     ui->paymentStatusValue->setText(pay.getAmountsMatch() ? "Yes" : "No");
     ui->remainingBalanceValue->setText("Rs " + QString::fromStdString(Inventory::formatPrice(pay.getRemainingBalance())));
 }
 void userDashboard::on_logoutBtn_clicked(){
-    QApplication::quit();
+    prev->show();
+    this->close();
 }
 void userDashboard::initializeFleet(){
     ui->typeComboBox->clear();
@@ -274,7 +282,7 @@ void userDashboard::initializeFleet(){
 void userDashboard::createHistoryTable(){
     ui->rentalHistoryTable->setColumnCount(7);
     QStringList headers;
-    headers << "RentalID" << "Customer Name" << "Car Name" << "Start Date" << "End Date" << "Total Cost" << "Status";
+    headers << "RentalID" << "Customer Name" << "Car ID" << "Start Date" << "End Date" << "Total Cost" << "Status";
     ui->rentalHistoryTable->setHorizontalHeaderLabels(headers);
     ui->rentalHistoryTable->setColumnWidth(0, 100);
     ui->rentalHistoryTable->setColumnWidth(1, 160);
@@ -337,11 +345,7 @@ void userDashboard::applyFilter(){
         ui->resultLabel->setText(QString::number(anyMatch) + " vehicles found");
 }
 void userDashboard::loadFromHistory(){
-    qDebug() << "loadFromHistory called";
-    qDebug() << "Rental count:" << c.getRentalHistory().getNoOfRentals();
-    qDebug() << "Table row count before clear:" << ui->rentalHistoryTable->rowCount();
     ui->rentalHistoryTable->setRowCount(0);
-    qDebug() << "Table column count:" << ui->rentalHistoryTable->columnCount();
     for(int j = 0; j < c.getRentalHistory().getNoOfRentals(); j++){
         rental r = c.getRentalHistory().getRentalAt(j);
         int row = ui->rentalHistoryTable->rowCount();
@@ -487,13 +491,14 @@ void userDashboard::updateBooking(){
             addOnPrice += 1000 * duration;
         }
         double tax = 0.05 * (price + addOnPrice);
-        double total = (price + addOnPrice + tax) * (1.0 - discount);
+        double total = (price + addOnPrice + tax) * (1.0 - discount) + penalties;
         ui->priceSummaryLabel->setText("Rs " + QString::fromStdString(Inventory::formatPrice(price)));
         ui->durationLabelSummary->setText(QString::number(duration) + " Days");
         ui->durationLabel->setText("Duration: " + QString::number(duration) + " Days");
         ui->addOnLabel->setText("Rs " + QString::fromStdString(Inventory::formatPrice(addOnPrice)));
         ui->taxLabel->setText("Rs " + QString::fromStdString(Inventory::formatPrice(tax)));
         ui->totalPriceLabel->setText("Rs " + QString::fromStdString(Inventory::formatPrice(total)));
+        ui->penaltiesLabel->setText("Rs " + QString::fromStdString(Inventory::formatPrice(penalties)));
 
     }
 }
@@ -505,17 +510,21 @@ void userDashboard::on_confirmBtn_clicked(){
     int duration = ui->pickupDate->date().daysTo(ui->dropOffDate->date());
     double price = userSelection->getPrice() * duration;
     double addOnPrice = 0.0;
+    double driverCost = 0.0;
+    double insuranceCost = 0.0;
+    double deliveryCost = 0.0;
     if(ui->deliveryCheck->isChecked()){
-        addOnPrice += 2000 * duration;
+        deliveryCost += 2000 * duration;
     }
     if(ui->insuranceCheck->isChecked()){
-        addOnPrice += 2000 * duration;
+        insuranceCost += 2000 * duration;
     }
     if(ui->driverCheck->isChecked()){
-        addOnPrice += 1000 * duration;
+        driverCost += 1000 * duration;
     }
+    addOnPrice = deliveryCost + driverCost + insuranceCost;
     double tax = 0.05 * (price + addOnPrice);
-    double total = (price + addOnPrice + tax) * (1.0 - discount);
+    double total = (price + addOnPrice + tax) * (1.0 - discount) + penalties;
     string startDate = ui->pickupDate->date().toString("dd/MM/yyyy").toStdString();
     string endDate = ui->dropOffDate->date().toString("dd/MM/yyyy").toStdString();
     string rentalID = "R";
@@ -525,7 +534,10 @@ void userDashboard::on_confirmBtn_clicked(){
     }
     rental r(rentalID, c.getUserName(), startDate, endDate, userSelection->getCardId(), total, "Upcoming", ui->driverCheck->isChecked(), ui->insuranceCheck->isChecked(), ui->deliveryCheck->isChecked(), discount);
     c.getRentalHistory().appendNewRental(r);
+    Invoice newInv(rentalID, c.getUserName(), userSelection->getName(), userSelection->getCardId(), startDate, endDate, duration, price, driverCost, insuranceCost, deliveryCost, ui->driverCheck->isChecked(), ui->insuranceCheck->isChecked(), ui->deliveryCheck->isChecked(), discount, 0.05, penalties);
+    Payment pay(newInv.getTotalCost(), r.getRentalPrice());
     c.updateLoyaltyPoints(10 * duration);
+    ui->whatPoints->setText(QString::number(c.getLoyaltyPoints()));
     ui->typeBooking->setCurrentIndex(0);
     ui->carBooking->clear();
     ui->driverCheck->setChecked(false);
@@ -535,7 +547,9 @@ void userDashboard::on_confirmBtn_clicked(){
     discount = 0.0;
     userSelection = nullptr;
     updateBooking();
+    populateInvoicePage(newInv, pay);
     ui->stackedWidget->setCurrentWidget(ui->invoicesPage);
+    ui->invoiceBtn->setChecked(true);
 }
 void userDashboard::on_discountBtn_clicked(){
     string promoCode = ui->discountEdit->text().toStdString();
@@ -556,4 +570,5 @@ void userDashboard::on_discountBtn_clicked(){
 userDashboard::~userDashboard()
 {
     delete ui;
+    delete i;
 }

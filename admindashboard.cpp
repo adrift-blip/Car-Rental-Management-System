@@ -1,16 +1,18 @@
 #include "admindashboard.h"
 #include "ui_admindashboard.h"
 #include <fstream>
-
-AdminDashboard::AdminDashboard(Inventory* inv, admin &a, QWidget* parent)
+#include <ctime>
+AdminDashboard::AdminDashboard(Inventory* inv, admin &a, QWidget* previousWindow, QWidget* parent)
     : QWidget(parent),
-    ui(new Ui::AdminDashboard),
-    inventory(inv), a(a)
+    ui(new Ui::AdminDashboard), prev(previousWindow),
+    inventory(inv), a(a), allRentals(nullptr)
 {
     ui->setupUi(this);
     setupTables();
     updateOverviewStats();
     connectSignals();
+    ui->mileageEdit->setValidator(new QDoubleValidator(0.0, 9999999.0, 2, this));
+    ui->priceEdit->setValidator(new QIntValidator(0, 9999999, this));
     ui->stackedWidget->setCurrentIndex(0);
     setSidebarActive(ui->overviewBtn);
     string fullName = this->a.getFullName(); string initials;
@@ -33,6 +35,7 @@ AdminDashboard::AdminDashboard(Inventory* inv, admin &a, QWidget* parent)
 AdminDashboard::~AdminDashboard()
 {
     delete ui;
+    delete allRentals;
 }
 
 void AdminDashboard::refreshAll()
@@ -53,6 +56,25 @@ void AdminDashboard::connectSignals()
     connect(ui->toggleAvailBtn, &QPushButton::clicked, this, &AdminDashboard::onToggleAvailability);
     connect(ui->addAdminBtn, &QPushButton::clicked, this, &AdminDashboard::onAddAdminClicked);
     connect(ui->confirmBtn, &QPushButton::clicked, this, &AdminDashboard::on_confirmBtn_Clicked);
+    connect(ui->AddRemoveCar, &QPushButton::clicked, this, &AdminDashboard::onAddRemoveCarClicked);
+    connect(ui->addCarButton, &QPushButton::clicked, this, &AdminDashboard::on_addCarButton_Clicked);
+    connect(ui->removeCarButton, &QPushButton::clicked, this, &AdminDashboard::on_removeCarButton_Clicked);
+    connect(ui->carIDComboBox, &QComboBox::currentIndexChanged, this, &AdminDashboard::onCarRemoveSelected);
+    connect(ui->manageRentalStatusBtn, &QPushButton::clicked, this, &AdminDashboard::onManageRentalClicked);
+    connect(ui->idComboBox, &QComboBox::currentIndexChanged, this, &AdminDashboard::onRentalSelected);
+    connect(ui->statusComboBox, &QComboBox::currentIndexChanged, this, [this](int){
+        int index = ui->idComboBox->currentIndex();
+        if(index < 0)
+            return;
+        allRentals->setStatusAt(index, ui->statusComboBox->currentText().toStdString());
+        ofstream outFile("../../data/rental.txt");
+        if(!outFile)
+            return;
+        for(int i = 0; i < allRentals->getNoOfRentals(); i++){
+            rental r = allRentals->getRentalAt(i);
+            outFile << r.getRentalID() << "," << r.getNameOfBooker() << "," << r.getStartDate() << "," << r.getEndDate() << "," << r.getCardID() << "," << r.getRentalPrice() << "," << r.getStatus() << "," << r.getHasDriver() << "," << r.getHasInsurance() << "," << r.getHasDelivery() << "," << r.getDiscountRate() << endl;
+        }
+    });
 }
 
 void AdminDashboard::configureTable(QTableWidget* t)
@@ -212,14 +234,15 @@ void AdminDashboard::updateOverviewStats()
 
 void AdminDashboard::setSidebarActive(QPushButton* active)
 {
-    QPushButton* navBtns[5];
+    QPushButton* navBtns[7];
     navBtns[0] = ui->overviewBtn;
     navBtns[1] = ui->maintBtn;
     navBtns[2] = ui->availBtn;
     navBtns[4] = ui->allCarsBtn;
     navBtns[3] = ui->addAdminBtn;
-
-    for (int i = 0; i < 5; i++) {
+    navBtns[5] = ui->AddRemoveCar;
+    navBtns[6] = ui->manageRentalStatusBtn;
+    for (int i = 0; i < 6; i++) {
         navBtns[i]->setChecked(navBtns[i] == active);
     }
 }
@@ -330,7 +353,7 @@ void AdminDashboard::on_confirmBtn_Clicked(){
                 if (!outFile) {
                     throw invalid_argument("Unable to open file or maybe file does not exist");
                 }
-                outFile << endl << username << "," << password << ",1," <<  fullname << "," << adminID;
+                outFile << username << "," << password << ",1," <<  fullname << "," << adminID << endl;
                 QMessageBox::information(this,"Successful", "New Admin has been added sucessfully");
                 ui->newAdminName->clear();
                 ui->newPassword->clear();
@@ -341,4 +364,131 @@ void AdminDashboard::on_confirmBtn_Clicked(){
             {QMessageBox::warning(this, "Error", "This user already exists");
                 return;}
     }
+}
+
+void AdminDashboard::onAddRemoveCarClicked(){
+    ui->carIDComboBox->clear();
+    for(int i = 0; i < inventory->getCarCount(); i++){
+        Car *car = inventory->getCarAt(i);
+        ui->carIDComboBox->addItem(QString::fromStdString(car->getCardId()), QString::fromStdString(car->getCardId()));
+    }
+    ui->stackedWidget->setCurrentIndex(5);
+    setSidebarActive(ui->AddRemoveCar);
+}
+
+void AdminDashboard::on_addCarButton_Clicked(){
+    int fuelType;
+    string type = ui->typeComboBox->currentText().toStdString();
+    string manufacturer = ui->manufacturerEdit->text().toStdString();
+    string name = ui->carNameEdit->text().toStdString();
+    string fuel = ui->fuelComboBox->currentText().toStdString();
+    string color = ui->colorEdit->text().toStdString();
+    if(manufacturer.empty() || name.empty() || color.empty() ||ui->mileageEdit->text().isEmpty() || ui->priceEdit->text().isEmpty()){
+            QMessageBox::warning(this, "Error", "Please fill in all fields");
+            return;
+    }
+    string mileage = ui->mileageEdit->text().toStdString();
+    int price = ui->priceEdit->text().toInt();
+    if(fuel == "Petrol"){
+        fuelType = 0;
+        mileage += "L";
+    }
+    else{
+        fuelType = 1;
+        mileage += "KWH";
+    }
+    string CarID = "C";
+    for(int i = 0; i < 4; i++){
+        int num = rand() % 10;
+        CarID += to_string(num);
+    }
+    inventory->addCar(new Car(CarID, type, manufacturer, name, fuelType, mileage, color, "yes", "yes", price));
+    inventory->saveToFile("../../data/inventory.txt");
+    QMessageBox::information(this, "Success", "Car Added Successfully");
+    ui->manufacturerEdit->clear();
+    ui->carNameEdit->clear();
+    ui->colorEdit->clear();
+    ui->mileageEdit->clear();
+    ui->priceEdit->clear();
+    refreshAll();
+}
+
+void AdminDashboard::onCarRemoveSelected(int index){
+    string fuel;
+    if(index < 0){
+        return;
+    }
+    else{
+        Car *car = inventory->getCarAt(index);
+        if(car == nullptr){
+            return;
+        }
+        ui->manLabel->setText(QString::fromStdString(car->getCompany()));
+        ui->mileLabel->setText(QString::fromStdString(car->getSpec()));
+        ui->namLabel->setText(QString::fromStdString(car->getName()));
+        ui->priceLabele->setText(QString::number(car->getPrice()));
+        ui->colLabel->setText(QString::fromStdString(car->getColour()));
+        if(car->getFuelType() == 1){
+            fuel = "EV";
+        }
+        else
+            fuel = "Petrol";
+        ui->fueLabel->setText(QString::fromStdString(fuel));
+    }
+}
+
+void AdminDashboard::on_removeCarButton_Clicked(){
+    string carID = ui->carIDComboBox->currentData().toString().toStdString();
+    if(carID.empty()){
+        QMessageBox::warning(this, "Error", "Please Select a Car To Remove");
+        return;
+    }
+    Car *car = inventory->getCarFromID(carID);
+    if(car == nullptr){
+        QMessageBox::warning(this, "Error", "No car found with the ID");
+        return;
+    }
+    for(int i = 0; i < inventory->getCarCount(); i++){
+        if(inventory->getCarAt(i) == car){
+            inventory->removeCar(i);
+            inventory->saveToFile();
+            break;
+        }
+    }
+    QMessageBox::information(this, "Success", "Car was removed succesfully");
+    ui->carIDComboBox->clear();
+    for(int i = 0; i < inventory->getCarCount(); i++){
+        Car *car = inventory->getCarAt(i);
+        ui->carIDComboBox->addItem(QString::fromStdString(car->getCardId()), QString::fromStdString(car->getCardId()));
+    }
+    refreshAll();
+}
+
+void AdminDashboard::onManageRentalClicked(){
+    if(allRentals != nullptr){
+        delete allRentals;
+        allRentals = nullptr;
+    }
+    allRentals = new rentalHistory("../../data/rental.txt");
+    ui->idComboBox->clear();
+    for(int i = 0; i < allRentals->getNoOfRentals(); i++){
+        rental temp = allRentals->getRentalAt(i);
+        ui->idComboBox->addItem(QString::fromStdString(temp.getRentalID()), QString::fromStdString(temp.getRentalID()));
+    }
+    ui->stackedWidget->setCurrentIndex(6);
+    setSidebarActive(ui->manageRentalStatusBtn);
+}
+
+void AdminDashboard::onRentalSelected(int index){
+    if(index < 0)
+        return;
+    rental r = allRentals->getRentalAt(index);
+    ui->statusComboBox->blockSignals(true);
+    ui->statusComboBox->setCurrentText(QString::fromStdString(r.getStatus()));
+    ui->statusComboBox->blockSignals(false);
+}
+
+void AdminDashboard::on_logoutBtn_clicked(){
+    prev->show();
+    this->close();
 }

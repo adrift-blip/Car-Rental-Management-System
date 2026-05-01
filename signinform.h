@@ -15,6 +15,7 @@ public:
     explicit signInForm(QWidget *parent = nullptr);
     ~signInForm();
 private slots:
+    void on_passwordUnmasked_clicked();
     void on_login_clicked();
     void on_signUp_clicked();
 private:

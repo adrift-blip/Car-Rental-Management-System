@@ -116,7 +116,8 @@ border-radius: 6px;</string>
 font-weight: bold;
 color: #111111;
 background-color: transparent;
-font-family: Segoe UI;</string>
+font-family: Segoe UI;
+border:none;</string>
      </property>
      <property name="text">
       <string>RentEase</string>
@@ -134,7 +135,8 @@ font-family: Segoe UI;</string>
      <property name="styleSheet">
       <string notr="true">font-size: 11px;
 color: #6B7280;
-background: transparent;</string>
+background: transparent;
+border:none;</string>
      </property>
      <property name="text">
       <string>Admin Dashboard</string>
@@ -208,7 +210,8 @@ color: #ffffff;</string>
       <string notr="true">font-size: 12px;
 font-weight: bold;
 color: #111111;
-background: transparent;</string>
+background: transparent;
+border:none;</string>
      </property>
      <property name="text">
       <string>Ayaan</string>
@@ -226,7 +229,8 @@ background: transparent;</string>
      <property name="styleSheet">
       <string notr="true">font-size: 11px;
 color: #6B7280;
-background: transparent;</string>
+background: transparent;
+border:none;</string>
      </property>
      <property name="text">
       <string>Administrator</string>
@@ -313,6 +317,9 @@ QPushButton#overviewBtn:!checked:hover {
     <property name="flat">
      <bool>true</bool>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="maintBtn">
     <property name="geometry">
@@ -366,6 +373,9 @@ QPushButton#maintBtn:checked {
     <property name="flat">
      <bool>true</bool>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="availBtn">
     <property name="geometry">
@@ -419,6 +429,9 @@ QPushButton#availBtn:checked {
     <property name="flat">
      <bool>true</bool>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="allCarsBtn">
     <property name="geometry">
@@ -472,6 +485,9 @@ QPushButton#allCarsBtn:checked {
     <property name="flat">
      <bool>true</bool>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QLabel" name="footerLabel">
     <property name="geometry">
@@ -496,7 +512,7 @@ padding-left: 16px;
 padding-top: 10px;</string>
     </property>
     <property name="text">
-     <string>Support: 0111-BALLS</string>
+     <string>Support: 0111-DRIVE</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
@@ -506,7 +522,7 @@ padding-top: 10px;</string>
     <property name="geometry">
      <rect>
       <x>8</x>
-      <y>340</y>
+      <y>440</y>
       <width>194</width>
       <height>40</height>
      </rect>
@@ -548,6 +564,109 @@ QPushButton#addAdminBtn:checked {
     <property name="flat">
      <bool>true</bool>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QPushButton" name="AddRemoveCar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>340</y>
+      <width>194</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#AddRemoveCar {
+    border: none;
+    border-radius: 6px;
+    text-align: left;
+    padding-left: 10px;
+    color: #6B7280;
+    background: none;
+}
+QPushButton#AddRemoveCar:hover {
+    background-color: #F9FAFB;
+    color: #111111;
+}
+QPushButton#AddRemoveCar:checked {
+    background-color: #F3F4F6;
+    color: #111111;
+    font-weight: 600;
+}</string>
+    </property>
+    <property name="text">
+     <string>Add / Remove Car</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::FolderOpen"/>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QPushButton" name="manageRentalStatusBtn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>390</y>
+      <width>194</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#manageRentalStatusBtn {
+    border: none;
+    border-radius: 6px;
+    text-align: left;
+    padding-left: 10px;
+    color: #6B7280;
+    background: none;
+}
+QPushButton#manageRentalStatusBtn:hover {
+    background-color: #F9FAFB;
+    color: #111111;
+}
+QPushButton#manageRentalStatusBtn:checked {
+    background-color: #F3F4F6;
+    color: #111111;
+    font-weight: 600;
+}</string>
+    </property>
+    <property name="text">
+     <string>Manage Rental Status</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::ContactNew"/>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>18</width>
+      <height>18</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
   </widget>
   <widget class="QWidget" name="rootWidget" native="true">
@@ -569,7 +688,7 @@ QPushButton#addAdminBtn:checked {
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="overviewPage">
      <property name="styleSheet">
@@ -1008,6 +1127,31 @@ font-family: Segoe UI;</string>
         <bool>true</bool>
        </property>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="logoutBtn">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>480</y>
+        <width>200</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">    background-color: #FF0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Segoe UI;</string>
+      </property>
+      <property name="text">
+       <string>Log Out</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="maintPage">
@@ -1558,6 +1702,861 @@ font-family: Segoe UI;</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="addOrRemovePage">
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>200</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-size: 18px;
+font-weight: bold;
+color: #111111;
+background-color: transparent;
+font-family: Segoe UI;
+border:none;</string>
+      </property>
+      <property name="text">
+       <string>Add Or Remove Cars</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="brandSub_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>250</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-size: 11px;
+color: #6B7280;
+background: transparent;
+border:none;</string>
+      </property>
+      <property name="text">
+       <string>Manage The Fleet By Adding Or Removing Cars</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widget_2" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>300</width>
+        <height>544</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 1px solid #e8eaf0;
+border-radius: 20px;
+background: white;
+outline: none;
+color: #1a1a2e;</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_15">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Type:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="typeComboBox">
+         <property name="styleSheet">
+          <string notr="true">QComboBox {
+    background: #f4f5f8;
+    color: #1a1a2e;
+    border: 1px solid #dde1ed;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    height: 36px;
+}
+QComboBox:hover {
+ border-color: #3b4fd8; 
+}
+QComboBox::drop-down { 
+border: none; width: 24px; 
+}
+QComboBox QAbstractItemView {
+    background: white;
+    border: 1px solid #dde1ed;
+    border-radius: 6px;
+    color: #1a1a2e;
+    selection-background-color: #eef0fb;
+    selection-color: #3b4fd8;
+}</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Sedan</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Coupe</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Hatchback</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>SUV</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Crossover</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Convertible</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Station Wagon</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Minivan</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Pickup Truck</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_16">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Manufacturer:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="manufacturerEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: #fafafa;
+border: 1px solid #dddddd;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+color: #1a1a2e;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_17">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="carNameEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: #fafafa;
+border: 1px solid #dddddd;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+color: #1a1a2e;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_18">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Fuel Type</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="fuelComboBox">
+         <property name="styleSheet">
+          <string notr="true">QComboBox {
+    background: #f4f5f8;
+    color: #1a1a2e;
+    border: 1px solid #dde1ed;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    height: 36px;
+}
+QComboBox:hover {
+ border-color: #3b4fd8; 
+}
+QComboBox::drop-down { 
+border: none; width: 24px; 
+}
+QComboBox QAbstractItemView {
+    background: white;
+    border: 1px solid #dde1ed;
+    border-radius: 6px;
+    color: #1a1a2e;
+    selection-background-color: #eef0fb;
+    selection-color: #3b4fd8;
+}</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Petrol</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Electric</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_19">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Color</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="colorEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: #fafafa;
+border: 1px solid #dddddd;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+color: #1a1a2e;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_20">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Mileage</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="mileageEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: #fafafa;
+border: 1px solid #dddddd;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+color: #1a1a2e;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Price</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="priceEdit">
+         <property name="styleSheet">
+          <string notr="true">background-color: #fafafa;
+border: 1px solid #dddddd;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 14px;
+color: #1a1a2e;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="addCarButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>650</y>
+        <width>220</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#addCarButton {
+    background-color: #008000;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Segoe UI;
+}
+QPushButton#addCarButton:hover {
+    background-color: #D97706;
+}
+QPushButton#addCarButton:pressed {
+    background-color: #B45309;
+}</string>
+      </property>
+      <property name="text">
+       <string> Add Car</string>
+      </property>
+      <property name="icon">
+       <iconset theme="QIcon::ThemeIcon::DocumentSaveAs"/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="removeCarButton">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>650</y>
+        <width>220</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#removeCarButton {
+    background-color: #FF0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Segoe UI;
+}
+QPushButton#removeCarButton:hover {
+    background-color: #D97706;
+}
+QPushButton#removeCarButton:pressed {
+    background-color: #B45309;
+}</string>
+      </property>
+      <property name="text">
+       <string> Remove Car</string>
+      </property>
+      <property name="icon">
+       <iconset theme="QIcon::ThemeIcon::EditClear"/>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widget_3" native="true">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>90</y>
+        <width>300</width>
+        <height>544</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 1px solid #e8eaf0;
+border-radius: 20px;
+background: white;
+outline: none;
+color: #1a1a2e;</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_40">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Car ID:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="carIDComboBox">
+         <property name="styleSheet">
+          <string notr="true">QComboBox {
+    background: #f4f5f8;
+    color: #1a1a2e;
+    border: 1px solid #dde1ed;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    height: 36px;
+}
+QComboBox:hover {
+ border-color: #3b4fd8; 
+}
+QComboBox::drop-down { 
+border: none; width: 24px; 
+}
+QComboBox QAbstractItemView {
+    background: white;
+    border: 1px solid #dde1ed;
+    border-radius: 6px;
+    color: #1a1a2e;
+    selection-background-color: #eef0fb;
+    selection-color: #3b4fd8;
+}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_41">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Manufacturer:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="manLabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: #f8f8f8;
+border: 1px solid #c0c0c0;
+border-radius: 10px;
+padding: 5px;
+color: #333333;
+</string>
+         </property>
+         <property name="text">
+          <string>Manufacturer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_42">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="namLabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: #f8f8f8;
+border: 1px solid #c0c0c0;
+border-radius: 10px;
+padding: 5px;
+color: #333333;
+</string>
+         </property>
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_43">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Fuel Type</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="fueLabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: #f8f8f8;
+border: 1px solid #c0c0c0;
+border-radius: 10px;
+padding: 5px;
+color: #333333;
+</string>
+         </property>
+         <property name="text">
+          <string>Fuel Type</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_44">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Color</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="colLabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: #f8f8f8;
+border: 1px solid #c0c0c0;
+border-radius: 10px;
+padding: 5px;
+color: #333333;
+</string>
+         </property>
+         <property name="text">
+          <string>Color</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_45">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Mileage</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="mileLabel">
+         <property name="styleSheet">
+          <string notr="true">background-color: #f8f8f8;
+border: 1px solid #c0c0c0;
+border-radius: 10px;
+padding: 5px;
+color: #333333;
+</string>
+         </property>
+         <property name="text">
+          <string>Mileage</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_46">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Price</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="priceLabele">
+         <property name="styleSheet">
+          <string notr="true">background-color: #f8f8f8;
+border: 1px solid #c0c0c0;
+border-radius: 10px;
+padding: 5px;
+color: #333333;
+</string>
+         </property>
+         <property name="text">
+          <string>Price</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="statusManager">
+     <widget class="QLabel" name="brandName_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>200</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-size: 18px;
+font-weight: bold;
+color: #111111;
+background-color: transparent;
+font-family: Segoe UI;
+border:none;</string>
+      </property>
+      <property name="text">
+       <string>Rental Status Manager</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="brandSub_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>300</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-size: 11px;
+color: #6B7280;
+background: transparent;
+border:none;</string>
+      </property>
+      <property name="text">
+       <string>Manage the status of all of your rentals</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="widget_4" native="true">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>461</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 1px solid #e8eaf0;
+border-radius: 20px;
+background: white;
+outline: none;
+color: #1a1a2e;</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_47">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Rental ID:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="idComboBox">
+         <property name="styleSheet">
+          <string notr="true">QComboBox {
+    background: #f4f5f8;
+    color: #1a1a2e;
+    border: 1px solid #dde1ed;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    height: 36px;
+}
+QComboBox:hover {
+ border-color: #3b4fd8; 
+}
+QComboBox::drop-down { 
+border: none; width: 24px; 
+}
+QComboBox QAbstractItemView {
+    background: white;
+    border: 1px solid #dde1ed;
+    border-radius: 6px;
+    color: #1a1a2e;
+    selection-background-color: #eef0fb;
+    selection-color: #3b4fd8;
+}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_48">
+         <property name="styleSheet">
+          <string notr="true">font-weight:bold;
+border:none;
+outline:none;
+font-size: 15px;
+color: #6B7280;
+background-color: transparent;</string>
+         </property>
+         <property name="text">
+          <string>Status</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="statusComboBox">
+         <property name="styleSheet">
+          <string notr="true">QComboBox {
+    background: #f4f5f8;
+    color: #1a1a2e;
+    border: 1px solid #dde1ed;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    height: 36px;
+}
+QComboBox:hover {
+ border-color: #3b4fd8; 
+}
+QComboBox::drop-down { 
+border: none; width: 24px; 
+}
+QComboBox QAbstractItemView {
+    background: white;
+    border: 1px solid #dde1ed;
+    border-radius: 6px;
+    color: #1a1a2e;
+    selection-background-color: #eef0fb;
+    selection-color: #3b4fd8;
+}</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Upcoming</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Cancelled</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Active</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Completed</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Not Returned</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="SaveChanges">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>430</y>
+        <width>150</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#SaveChanges {
+    background-color: #008000;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: Segoe UI;
+}
+QPushButton#SaveChanges:hover {
+    background-color: #D97706;
+}
+QPushButton#SaveChanges:pressed {
+    background-color: #B45309;
+}</string>
+      </property>
+      <property name="text">
+       <string> Save Changes</string>
+      </property>
+      <property name="icon">
+       <iconset theme="QIcon::ThemeIcon::DocumentSaveAs"/>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -1565,4 +2564,7 @@ font-family: Segoe UI;</string>
   <include location="resource.qrc"/>
  </resources>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

@@ -12,6 +12,7 @@
 #include <QColor>
 #include "admin.h"
 #include "Inventory.h"
+#include "rentalhistory.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class AdminDashboard; }
@@ -21,15 +22,18 @@ class AdminDashboard : public QWidget {
     Q_OBJECT
 
 public:
-    AdminDashboard(Inventory* inv, admin &a, QWidget* parent = 0);
+    AdminDashboard(Inventory* inv, admin &a, QWidget* previousWindow, QWidget* parent = 0);
     ~AdminDashboard();
 
     void refreshAll();
-
-private:
-    Ui::AdminDashboard* ui;
-    admin a;
-    Inventory* inventory;
+private slots:
+    void on_logoutBtn_clicked();
+    void onManageRentalClicked();
+    void onRentalSelected(int index);
+    void onCarRemoveSelected(int index);
+    void onAddRemoveCarClicked();
+    void on_addCarButton_Clicked();
+    void on_removeCarButton_Clicked();
     void onOverviewClicked();
     void onMaintClicked();
     void onAvailClicked();
@@ -47,6 +51,12 @@ private:
     void updateOverviewStats();
     void setSidebarActive(QPushButton* active);
     void on_confirmBtn_Clicked();
+private:
+    Ui::AdminDashboard* ui;
+    QWidget* prev;
+    admin a;
+    Inventory* inventory;
+    rentalHistory* allRentals;
 };
 
 #endif

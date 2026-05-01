@@ -52,7 +52,7 @@ void customer::addPersonalDetails() const{
     if (!outFile) {
         throw invalid_argument("Unable to open file or maybe file does not exist");
     }
-    outFile << endl << getUserName() << "," << getUserPassword() << ",0," << fullName << "," << liscenseNum << "," << loyaltyPoints;
+    outFile << getUserName() << "," << getUserPassword() << ",0," << fullName << "," << liscenseNum << "," << loyaltyPoints << endl;
 }
 rentalHistory& customer::getRentalHistory(){
     return rh;

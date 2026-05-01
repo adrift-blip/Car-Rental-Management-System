@@ -5,9 +5,9 @@
 #include "user.h"
 #include<string>
 #include "signinform.h"
-signUpForm::signUpForm(QWidget *parent)
+signUpForm::signUpForm(QWidget* previousWindow, QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::signUpForm)
+    , ui(new Ui::signUpForm), prev(previousWindow)
 {
     this->setAttribute(Qt::WA_DeleteOnClose);
     ui->setupUi(this);
@@ -41,7 +41,7 @@ void signUpForm:: on_signUpButton_clicked(){
         currentUser.setUserPassword(password);
         currentUser.setPrivilegeLevel(0);
         User *u = &currentUser;
-        personalDetailsForm *pdf = new personalDetailsForm(u);
+        personalDetailsForm *pdf = new personalDetailsForm(u, prev);
         pdf->show();
         this->hide();
        }
@@ -66,7 +66,13 @@ void signUpForm::on_tcsButton_clicked() {
                              "8. Loyalty Points\nPoints earned per rental, redeemable for discounts.");
 }
 void signUpForm::on_backButton_clicked() {
-    signInForm *signIn = new signInForm();
-    signIn->show();
-    this->hide();
+    prev->show();
+    this->close();
+}
+void signUpForm::on_passwordUnmasked_clicked(){
+    if(ui->passwordEdit->echoMode() == QLineEdit::Password){
+        ui->passwordEdit->setEchoMode(QLineEdit::Normal);
+    }
+    else
+        ui->passwordEdit->setEchoMode(QLineEdit::Password);
 }

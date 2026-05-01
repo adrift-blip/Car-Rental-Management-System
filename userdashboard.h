@@ -17,7 +17,7 @@ class userDashboard : public QWidget
     Q_OBJECT
 
 public:
-    explicit userDashboard(customer c, QWidget *parent = nullptr);
+    explicit userDashboard(customer c, QWidget* previousWindow, QWidget *parent = nullptr);
     ~userDashboard();
 private slots:
     void on_overviewBtn_clicked();
@@ -38,8 +38,10 @@ private slots:
 private:
     Ui::userDashboard *ui;
     customer c;
+    QWidget *prev;
     Inventory* i;
     Car* userSelection;
+    int penalties;
     double discount;
     void populateInvoicePage(const Invoice& inv, const Payment& pay);
 };

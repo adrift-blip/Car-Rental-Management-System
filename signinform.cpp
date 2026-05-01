@@ -63,7 +63,9 @@ void signInForm::on_login_clicked() {
                 }
                 customer c(currentUser.getUserName(), currentUser.getUserPassword(), fullName, liscenseNum, stoi(loyaltyPoints));
                 qDebug() << "Rental count after construction:" << c.getRentalHistory().getNoOfRentals();
-                userDashboard *cd = new userDashboard(c);
+                ui->passwordEdit->clear();
+                ui->usernameEdit->clear();
+                userDashboard *cd = new userDashboard(c, this);
                 cd->show();
                 this->hide();
             }
@@ -87,7 +89,9 @@ void signInForm::on_login_clicked() {
                 admin a(currentUser.getUserName(), currentUser.getUserPassword(), 1, fullName, empID);
                 Inventory *i = new Inventory();
                 i->loadFromFile("../../data/inventory.txt");
-                AdminDashboard *ad = new AdminDashboard(i, a);
+                AdminDashboard *ad = new AdminDashboard(i, a, this);
+                ui->passwordEdit->clear();
+                ui->usernameEdit->clear();
                 ad->show();
                 this->hide();
             }
@@ -98,9 +102,18 @@ void signInForm::on_login_clicked() {
     }
 }
 void signInForm:: on_signUp_clicked(){
-    signUpForm *signUp = new signUpForm();
+    signUpForm *signUp = new signUpForm(this);
+    ui->passwordEdit->clear();
+    ui->usernameEdit->clear();
     signUp->show();
     this->hide();
+}
+void signInForm::on_passwordUnmasked_clicked(){
+    if(ui->passwordEdit->echoMode() == QLineEdit::Password){
+        ui->passwordEdit->setEchoMode(QLineEdit::Normal);
+    }
+    else
+        ui->passwordEdit->setEchoMode(QLineEdit::Password);
 }
 signInForm::~signInForm()
 {

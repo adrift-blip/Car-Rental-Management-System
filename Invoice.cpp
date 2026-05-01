@@ -1,4 +1,4 @@
-#include "invoice.h"
+#include "Invoice.h"
 
 Invoice::Invoice(const string& rentalID,
                  const string& customerName,
@@ -15,7 +15,7 @@ Invoice::Invoice(const string& rentalID,
                  bool hasInsurance,
                  bool hasDelivery,
                  double discountRate,
-                 double taxRate)
+                 double taxRate, int penalties)
 {
     this->rentalID = rentalID;
     this->customerName = customerName;
@@ -38,9 +38,11 @@ Invoice::Invoice(const string& rentalID,
     double afterDiscount = (baseCost + addOnTotal) - discountAmount;
     taxAmount = afterDiscount * taxRate;
     totalCost = afterDiscount + taxAmount;
+    this->penalties = penalties;
 }
 
 string Invoice::getRentalID() const{ return rentalID; }
+int Invoice::getPenalties() const{ return penalties;}
 string Invoice::getCustomerName() const{ return customerName; }
 string Invoice::getCarName() const{ return carName; }
 string Invoice::getCarID() const { return carID; }

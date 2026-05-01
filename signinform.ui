@@ -157,6 +157,9 @@ padding: 10px 14px;
 font-size: 14px;
 color: #1a1a2e;</string>
    </property>
+   <property name="echoMode">
+    <enum>QLineEdit::EchoMode::Password</enum>
+   </property>
   </widget>
   <widget class="QRadioButton" name="loginAsUser">
    <property name="geometry">
@@ -235,6 +238,29 @@ font-size: 14px;</string>
    </property>
    <property name="text">
     <string>Register As User</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="passwordUnmasked">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>260</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #ffffff;
+color: #444444;
+border: 1px solid #dddddd;
+border-radius: 8px;
+font-size: 14px;</string>
+   </property>
+   <property name="text">
+    <string>Show</string>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::MailMarkRead"/>
    </property>
   </widget>
  </widget>

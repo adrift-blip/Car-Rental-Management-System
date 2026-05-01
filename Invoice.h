@@ -26,6 +26,7 @@ private:
     bool driver;
     bool insurance;
     bool delivery;
+    int penalties;
 public:
     Invoice(const string& rentalID,
             const string& customerName,
@@ -42,7 +43,7 @@ public:
             bool hasInsurance,
             bool hasDelivery,
             double discountRate,
-            double taxRate);
+            double taxRate, int penalties);
 
     string getRentalID() const;
     string getCustomerName()const;
@@ -61,7 +62,7 @@ public:
     double getTaxRate() const;
     double getTaxAmount() const;
     double getTotalCost() const;
-
+    int getPenalties()const;
     bool hasDriverService()const;
     bool hasInsuranceService() const;
     bool hasDeliveryService() const;

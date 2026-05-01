@@ -101,6 +101,56 @@ void rentalHistory::appendNewRental(const rental& r){
     if(!inFile){
         exit(1);
     }
-    inFile << endl << r.getRentalID() << "," << r.getNameOfBooker() << "," << r.getStartDate() << "," << r.getEndDate() << "," << r.getCardID() << "," << r.getRentalPrice() << "," << r.getStatus() << "," << r.getHasDriver() << "," << r.getHasInsurance() << "," << r.getHasDelivery() << "," << r.getDiscountRate();
+    inFile << r.getRentalID() << "," << r.getNameOfBooker() << "," << r.getStartDate() << "," << r.getEndDate() << "," << r.getCardID() << "," << r.getRentalPrice() << "," << r.getStatus() << "," << r.getHasDriver() << "," << r.getHasInsurance() << "," << r.getHasDelivery() << "," << r.getDiscountRate() << endl;
     inFile.close();
+}
+rentalHistory::rentalHistory(string filename){
+    noOfRentals = 0;
+    ifstream inFile(filename);
+    if (!inFile) {
+        cout << "FILE NOT FOUND" << endl;
+        exit(1);
+    }
+    string line;
+    while (getline(inFile, line)) {
+        stringstream sample(line);
+        string rentalID, currentUserName;
+        getline(sample, rentalID, ',');
+        getline(sample, currentUserName, ',');
+        noOfRentals++;
+    }
+    inFile.clear();
+    inFile.seekg(0);
+    array = new rental[noOfRentals];
+    int i = 0;
+    while (getline(inFile, line)) {
+        stringstream sample(line);
+        string rentalID, currentUserName, sDate, eDate, carID, state, tcString, driverStr, insuranceStr, deliveryStr, discountStr;
+        double tc, discountRate;
+        bool driver, insurance, delivery;
+        getline(sample, rentalID, ',');
+        getline(sample, currentUserName, ',');
+        getline(sample, sDate, ',');
+        getline(sample, eDate, ',');
+        getline(sample, carID, ',');
+        getline(sample, tcString, ',');
+        getline(sample, state, ',');
+        getline(sample, driverStr, ',');
+        getline(sample, insuranceStr, ',');
+        getline(sample, deliveryStr, ',');
+        getline(sample, discountStr);
+        tc = stof(tcString);
+        driver = stoi(driverStr);
+        insurance = stoi(insuranceStr);
+        delivery = stoi(deliveryStr);
+        discountRate = stod(discountStr);
+        *(array + i) = rental(rentalID, currentUserName, sDate, eDate, carID, tc, state, driver, insurance, delivery, discountRate);
+        i++;
+    }
+    inFile.close();
+}
+void rentalHistory::setStatusAt(int index, string status){
+    if(index >= 0 && index < noOfRentals){
+        (array + index)->setStatus(status);
+    }
 }

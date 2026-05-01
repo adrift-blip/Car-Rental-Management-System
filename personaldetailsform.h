@@ -12,12 +12,13 @@ class personalDetailsForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit personalDetailsForm(User *u = nullptr, QWidget *parent = nullptr);
+    explicit personalDetailsForm(User *u, QWidget* previousWindow, QWidget *parent = nullptr);
     ~personalDetailsForm();
 private slots:
     void on_registerButton_clicked();
 private:
     Ui::personalDetailsForm *ui;
+    QWidget *prev;
     User currentUser;
 };
 
