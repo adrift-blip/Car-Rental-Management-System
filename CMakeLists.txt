@@ -83,6 +83,6 @@ install(TARGETS OOP_Project_Team_7_CY-2X
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-if(QT_VERSION_MAJOR EQUAL 6)
+if(QT_VERSION_MAJOR EQUAL 6) 
     qt_finalize_executable(OOP_Project_Team_7_CY-2X)
 endif()
