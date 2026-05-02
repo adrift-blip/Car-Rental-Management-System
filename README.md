@@ -50,5 +50,9 @@ Late returns are monitored, and penalties are calculated automatically. This hel
 
 ---
 
-## 📄 License
-This project is developed for academic purposes as part of the CS1004 Object Oriented Programming course at FAST-NUCES.
+## Third-Party Licenses
+
+This project uses [Qt](https://www.qt.io/) under the 
+[GNU Lesser General Public License (LGPL) v3](https://www.gnu.org/licenses/lgpl-3.0.html).
+
+Qt is a trademark of The Qt Company Ltd.
